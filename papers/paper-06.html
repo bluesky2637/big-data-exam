@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Windows 网络安全与 PKI | 离线模拟考试</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="exam-page">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="exam-topbar">
+    <a class="back-link" href="../index.html">← 返回试卷总览</a>
+    <div class="timer-panel" aria-label="答题计时">
+      <span class="timer-label">本次用时</span>
+      <strong id="timer">00:00:00</strong>
+    </div>
+    <button class="button button-quiet mobile-nav-button" id="mobile-nav-button" type="button">题号</button>
+  </header>
+
+  <main class="exam-shell">
+    <aside class="question-sidebar" id="question-sidebar">
+      <div class="sidebar-heading">
+        <span class="eyebrow">答题卡</span>
+        <button class="icon-button" id="close-nav" type="button" aria-label="关闭题号导航">×</button>
+      </div>
+      <div class="progress-ring" id="progress-ring" style="--progress: 0">
+        <span id="progress-percent">0%</span>
+      </div>
+      <div class="progress-copy"><strong id="answered-count">0</strong> / 50 已作答</div>
+      <nav class="question-grid" id="question-grid" aria-label="题号导航"></nav>
+      <div class="legend">
+        <span><i class="legend-dot answered"></i>已答</span>
+        <span><i class="legend-dot current"></i>当前</span>
+        <span><i class="legend-dot blank"></i>未答</span>
+      </div>
+    </aside>
+
+    <section class="exam-content">
+      <article class="paper-intro">
+        <div>
+          <span class="eyebrow">网络与安全 · 2026-05-21</span>
+          <h1>Windows 网络安全与 PKI</h1>
+          <p>Windows 网络命令、IPC$、IIS、CA 与数字证书</p>
+          
+        </div>
+        <dl class="paper-facts">
+          <div><dt>题目</dt><dd>50</dd></div>
+          <div><dt>总分</dt><dd>100</dd></div>
+          <div><dt>专业方向</dt><dd>信息安全、计算机网络技术</dd></div>
+        </dl>
+        
+        <div class="paper-note">
+          <strong>模拟作答模式</strong>
+          <span>本页面暂无参考答案，也不会自动评分。专业归属根据试题内容推断，不代表学校官方认定。</span>
+        </div>
+        
+        <p class="type-summary">单选题 35 · 判断题 15</p>
+      </article>
+
+      
+
+      <form id="exam-form" autocomplete="off">
+        <div id="questions"></div>
+      </form>
+
+      <section class="exam-actions" aria-label="试卷操作">
+        <div>
+          <strong>答题记录自动保存在本机浏览器中</strong>
+          <p id="storage-status">正在检查本地存储...</p>
+        </div>
+        <div class="action-buttons">
+          <button class="button button-quiet" id="export-button" type="button">导出记录</button>
+          <label class="button button-quiet" for="import-input">导入记录</label>
+          <input id="import-input" type="file" accept="application/json,.json" hidden>
+          <button class="button button-quiet" id="print-button" type="button">打印试卷</button>
+          
+          <button class="button button-danger" id="reset-button" type="button">重新作答</button>
+          <button class="button button-primary" id="submit-button" type="button">交卷</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="summary-modal" hidden>
+    <section class="summary-modal" role="dialog" aria-modal="true" aria-labelledby="summary-title">
+      <span class="eyebrow">交卷摘要</span>
+      <h2 id="summary-title">答题记录已封存</h2>
+      <div class="summary-numbers">
+        <div><strong id="summary-answered">0</strong><span>已答</span></div>
+        <div><strong id="summary-unanswered">0</strong><span>未答</span></div>
+        <div><strong id="summary-time">00:00:00</strong><span>用时</span></div>
+      </div>
+      <p>模拟考试只统计完成情况，不显示答案或分数。记录仍可导出或打印。</p>
+      <button class="button button-primary" id="close-summary" type="button">查看答卷</button>
+    </section>
+  </div>
+
+  <script id="exam-data" type="application/json">{"id":"paper-06","title":"Windows 网络安全与 PKI","short_title":"Windows 网络安全","date":"2026-05-21","course":"Windows 网络命令、IPC$、IIS、CA 与数字证书","majors":["信息安全","计算机网络技术"],"category":"网络与安全","question_count":50,"total_score":100.0,"type_counts":{"单选题":35,"判断题":15},"source_file":"考试系统 (2026_5_21 16：25：52).html","source_sha256":"906c22ea633731921d766596d5c10832853735da44b836c0baeddc9d52baa589","has_answers":false,"questions":[{"number":1,"source_number":1,"type":"单选题","score":2.0,"stem_html":"\u003cp>查看远程主机系统时间的命令是?()\u003c/p>","options":[{"label":"A","text":"query time \\IP","html":""},{"label":"B","text":"net time \\IP","html":""},{"label":"C","text":"net use \\IP time","html":""},{"label":"D","text":"time \\IP","html":""}],"blank_count":0,"missing_images":0},{"number":2,"source_number":2,"type":"单选题","score":2.0,"stem_html":"\u003cp>SSL 握手过程中,客户端生成的是?()\u003c/p>","options":[{"label":"A","text":"客户端私钥","html":""},{"label":"B","text":"会话密钥","html":""},{"label":"C","text":"服务器公钥","html":""},{"label":"D","text":"CA 公钥","html":""}],"blank_count":0,"missing_images":0},{"number":3,"source_number":3,"type":"单选题","score":2.0,"stem_html":"\u003cp>禁止 IPC$ 空连接枚举用户,需修改注册表哪个键值?()\u003c/p>","options":[{"label":"A","text":"NoEmptyConnect","html":""},{"label":"B","text":"DisableIPC","html":""},{"label":"C","text":"RestrictAnonymous","html":""},{"label":"D","text":"enyAnonymous","html":""}],"blank_count":0,"missing_images":0},{"number":4,"source_number":4,"type":"单选题","score":2.0,"stem_html":"\u003cp>企业根 CA 的必要条件是?()\u003c/p>","options":[{"label":"A","text":"无需活动目录","html":""},{"label":"B","text":"必须加入域(AD)","html":""},{"label":"C","text":"仅能部署在工作组","html":""},{"label":"D","text":"独立服务器即可部署","html":""}],"blank_count":0,"missing_images":0},{"number":5,"source_number":5,"type":"单选题","score":2.0,"stem_html":"\u003cp>IPC$ 入侵依赖的两个关键端口是?()\u003c/p>","options":[{"label":"A","text":"21、23","html":""},{"label":"B","text":"22、3389","html":""},{"label":"C","text":"139、445","html":""},{"label":"D","text":"80、443","html":""}],"blank_count":0,"missing_images":0},{"number":6,"source_number":6,"type":"单选题","score":2.0,"stem_html":"\u003cp>删除所有 IPC$ 连接的命令是?()\u003c/p>","options":[{"label":"A","text":"net share * /del","html":""},{"label":"B","text":"net use /del","html":""},{"label":"C","text":"net use * /del","html":""},{"label":"D","text":"net localgroup /del","html":""}],"blank_count":0,"missing_images":0},{"number":7,"source_number":7,"type":"单选题","score":2.0,"stem_html":"\u003cp>Windows Server 2016 中提供 CA 服务的组件是?()\u003c/p>","options":[{"label":"A","text":"DNS","html":""},{"label":"B","text":"IIS","html":""},{"label":"C","text":"AD CS","html":""},{"label":"D","text":"AD DS","html":""}],"blank_count":0,"missing_images":0},{"number":8,"source_number":8,"type":"单选题","score":2.0,"stem_html":"\u003cp>查看本机所有共享资源的命令是?()\u003c/p>","options":[{"label":"A","text":"net localgroup","html":""},{"label":"B","text":"net config","html":""},{"label":"C","text":"net share","html":""},{"label":"D","text":"net user","html":""}],"blank_count":0,"missing_images":0},{"number":9,"source_number":9,"type":"单选题","score":2.0,"stem_html":"\u003cp>客户机访问 HTTPS 网站提示 “证书错误”,最可能原因是?()\u003c/p>","options":[{"label":"A","text":"客户机未信任 CA 证书","html":""},{"label":"B","text":"网站宕机","html":""},{"label":"C","text":"网络中断","html":""},{"label":"D","text":"浏览器版本过低","html":""}],"blank_count":0,"missing_images":0},{"number":10,"source_number":10,"type":"单选题","score":2.0,"stem_html":"\u003cp>以下哪项不是 IPC$ 入侵的防范措施?()\u003c/p>","options":[{"label":"A","text":"设置复杂管理员密码","html":""},{"label":"B","text":"开放 139/445 端口","html":""},{"label":"C","text":"删除默认共享","html":""},{"label":"D","text":"禁止空连接枚举","html":""}],"blank_count":0,"missing_images":0},{"number":11,"source_number":11,"type":"单选题","score":2.0,"stem_html":"\u003cp>下载 CA 证书后,需导入到客户机的哪个存储区?()\u003c/p>","options":[{"label":"A","text":"第三方证书","html":""},{"label":"B","text":"中间证书","html":""},{"label":"C","text":"受信任的根证书颁发机构","html":""},{"label":"D","text":"个人证书","html":""}],"blank_count":0,"missing_images":0},{"number":12,"source_number":12,"type":"单选题","score":2.0,"stem_html":"\u003cp>IPC连接提示错误(拒绝访问),原因是?()\u003c/p>","options":[{"label":"A","text":"账号无管理员权限","html":""},{"label":"B","text":"防火墙拦截端口","html":""},{"label":"C","text":"IP地址错误","html":""},{"label":"D","text":"IP已被删除","html":""}],"blank_count":0,"missing_images":0},{"number":13,"source_number":13,"type":"单选题","score":2.0,"stem_html":"\u003cp>PKI 的中文全称是?()\u003c/p>","options":[{"label":"A","text":"私钥基础设施","html":""},{"label":"B","text":"公开密钥加密","html":""},{"label":"C","text":"数字证书体系","html":""},{"label":"D","text":"公钥基础设施","html":""}],"blank_count":0,"missing_images":0},{"number":14,"source_number":14,"type":"单选题","score":2.0,"stem_html":"\u003cp>HTTPS 默认端口是?()\u003c/p>","options":[{"label":"A","text":"22","html":""},{"label":"B","text":"3389","html":""},{"label":"C","text":"443","html":""},{"label":"D","text":"80","html":""}],"blank_count":0,"missing_images":0},{"number":15,"source_number":15,"type":"单选题","score":2.0,"stem_html":"\u003cp>SSL 协议的作用是?()\u003c/p>","options":[{"label":"A","text":"仅身份认证","html":""},{"label":"B","text":"加密 + 身份认证 + 完整性校验","html":""},{"label":"C","text":"仅数据完整性校验","html":""},{"label":"D","text":"仅加密 Web 数据","html":""}],"blank_count":0,"missing_images":0},{"number":16,"source_number":16,"type":"单选题","score":2.0,"stem_html":"\u003cp>建立 IPC正常连接的正确命令是?() \u003c/p>","options":[{"label":"A","text":"\"密码\" /user:\"账号\"","html":""},{"label":"B","text":"net use IP ipc$ \"密码\" /user:\"账号\"","html":""},{"label":"C","text":"net link \\IP\\ipc$ \"密码\" /user:\"账号\"","html":""},{"label":"D","text":"net share \\IP\\ipc$ \"密码\" /user:\"账号\"","html":""}],"blank_count":0,"missing_images":0},{"number":17,"source_number":17,"type":"单选题","score":2.0,"stem_html":"\u003cp>IPC$ 连接提示错误 53(找不到网络路径),最可能原因是?()\u003c/p>","options":[{"label":"A","text":"目标主机未开机或防火墙拦截","html":""},{"label":"B","text":"用户名不存在","html":""},{"label":"C","text":"权限不足","html":""},{"label":"D","text":"密码错误","html":""}],"blank_count":0,"missing_images":0},{"number":18,"source_number":18,"type":"单选题","score":2.0,"stem_html":"\u003cp>Web 服务器证书申请文件保存路径默认是?()\u003c/p>","options":[{"label":"A","text":"D 盘根目录","html":""},{"label":"B","text":"系统目录","html":""},{"label":"C","text":"盘根目录","html":""},{"label":"D","text":"IIS 安装目录","html":""}],"blank_count":0,"missing_images":0},{"number":19,"source_number":19,"type":"单选题","score":2.0,"stem_html":"\u003cp>注册表中 RestrictAnonymous 键值设为 1 的作用是?()\u003c/p>","options":[{"label":"A","text":"自动删除默认共享","html":""},{"label":"B","text":"拦截 139/445 端口","html":""},{"label":"C","text":"完全禁用 IPC$","html":""},{"label":"D","text":"禁止空连接枚举用户","html":""}],"blank_count":0,"missing_images":0},{"number":20,"source_number":20,"type":"单选题","score":2.0,"stem_html":"\u003cp>非对称加密中,用于加密信息的是?()\u003c/p>","options":[{"label":"A","text":"私钥","html":""},{"label":"B","text":"对称密钥","html":""},{"label":"C","text":"公钥","html":""},{"label":"D","text":"会话密钥","html":""}],"blank_count":0,"missing_images":0},{"number":21,"source_number":21,"type":"单选题","score":2.0,"stem_html":"\u003cp>IPC$ 连接成功后,远程 C 盘默认映射为本地哪个盘符?()\u003c/p>","options":[{"label":"A","text":"C 盘","html":""},{"label":"B","text":"Y 盘","html":""},{"label":"C","text":"D 盘","html":""},{"label":"D","text":"Z 盘","html":""}],"blank_count":0,"missing_images":0},{"number":22,"source_number":22,"type":"单选题","score":2.0,"stem_html":"\u003cp>独立 CA 默认是否自动颁发证书?()\u003c/p>","options":[{"label":"A","text":"仅企业 CA 自动颁发","html":""},{"label":"B","text":"配置后自动颁发","html":""},{"label":"C","text":"是","html":""},{"label":"D","text":"否,需手动颁发","html":""}],"blank_count":0,"missing_images":0},{"number":23,"source_number":23,"type":"单选题","score":2.0,"stem_html":"\u003cp>安全 Web 站点使用的协议是?()\u003c/p>","options":[{"label":"A","text":"TCP","html":""},{"label":"B","text":"FTP","html":""},{"label":"C","text":"HTTPS","html":""},{"label":"D","text":"HTTP","html":""}],"blank_count":0,"missing_images":0},{"number":24,"source_number":24,"type":"单选题","score":2.0,"stem_html":"\u003cp>以下哪项不是安全 Web 站点的特点?()\u003c/p>","options":[{"label":"A","text":"一个服务器可建多个默认 HTTPS 站点","html":""},{"label":"B","text":"依赖数字证书","html":""},{"label":"C","text":"访问速度比 HTTP 慢","html":""},{"label":"D","text":"传输数据加密","html":""}],"blank_count":0,"missing_images":0},{"number":25,"source_number":25,"type":"单选题","score":2.0,"stem_html":"\u003cp>IPC$ 默认开启的目的是?()\u003c/p>","options":[{"label":"A","text":"系统漏洞修复","html":""},{"label":"B","text":"用户账户同步","html":""},{"label":"C","text":"网络数据加密","html":""},{"label":"D","text":"远程管理主机","html":""}],"blank_count":0,"missing_images":0},{"number":26,"source_number":26,"type":"单选题","score":2.0,"stem_html":"\u003cp>数字签名使用的密钥是?()\u003c/p>","options":[{"label":"A","text":"发送方公钥","html":""},{"label":"B","text":"发送方私钥","html":""},{"label":"C","text":"接收方私钥","html":""},{"label":"D","text":"接收方公钥","html":""}],"blank_count":0,"missing_images":0},{"number":27,"source_number":27,"type":"单选题","score":2.0,"stem_html":"\u003cp>Web 服务器向 CA 提交证书申请的格式是?()\u003c/p>","options":[{"label":"A","text":"XML 格式","html":""},{"label":"B","text":"明文文本","html":""},{"label":"C","text":"加密的二进制文件","html":""},{"label":"D","text":"base64 编码的 PKCS#10","html":""}],"blank_count":0,"missing_images":0},{"number":28,"source_number":28,"type":"单选题","score":2.0,"stem_html":"\u003cp>停止 Server 服务的命令是?()\u003c/p>","options":[{"label":"A","text":"taskkill /f/im server.exe","html":""},{"label":"B","text":"net disable server","html":""},{"label":"C","text":"net stop server /y","html":""},{"label":"D","text":"sc stop server","html":""}],"blank_count":0,"missing_images":0},{"number":29,"source_number":29,"type":"单选题","score":2.0,"stem_html":"\u003cp>IPC$ 空连接的特点是?()\u003c/p>","options":[{"label":"A","text":"可直接映射远程磁盘","html":""},{"label":"B","text":"无需账号密码,权限极低","html":""},{"label":"C","text":"可远程执行任意程序","html":""},{"label":"D","text":"需要管理员账号密码","html":""}],"blank_count":0,"missing_images":0},{"number":30,"source_number":30,"type":"单选题","score":2.0,"stem_html":"\u003cp>本次实验部署的 CA 类型是?()\u003c/p>","options":[{"label":"A","text":"企业从属 CA","html":""},{"label":"B","text":"独立从属 CA","html":""},{"label":"C","text":"企业根 CA","html":""},{"label":"D","text":"独立根 CA","html":""}],"blank_count":0,"missing_images":0},{"number":31,"source_number":31,"type":"单选题","score":2.0,"stem_html":"\u003cp>申请 Web 服务器证书时,“通用名称” 需填写?()\u003c/p>","options":[{"label":"A","text":"组织名称","html":""},{"label":"B","text":"网站域名","html":""},{"label":"C","text":"服务器 IP","html":""},{"label":"D","text":"服务器计算机名","html":""}],"blank_count":0,"missing_images":0},{"number":32,"source_number":32,"type":"单选题","score":2.0,"stem_html":"\u003cp>配置 CA 时,“创建新的私钥” 的作用是?()\u003c/p>","options":[{"label":"A","text":"加密证书数据库","html":""},{"label":"B","text":"生成 CA 自身密钥对","html":""},{"label":"C","text":"生成用户证书密钥","html":""},{"label":"D","text":"解密证书申请","html":""}],"blank_count":0,"missing_images":0},{"number":33,"source_number":33,"type":"单选题","score":2.0,"stem_html":"\u003cp>访问 CA 证书申请页面的默认地址是?()\u003c/p>","options":[{"label":"A","text":"https://IP/certsrv/","html":""},{"label":"B","text":"http://IP/ca/","html":""},{"label":"C","text":"https://IP/ca/","html":""},{"label":"D","text":"http://IP/certsrv/","html":""}],"blank_count":0,"missing_images":0},{"number":34,"source_number":34,"type":"单选题","score":2.0,"stem_html":"\u003cp>同一 IIS 服务器上,默认安全 Web 站点的数量限制是?()\u003c/p>","options":[{"label":"A","text":"3 个","html":""},{"label":"B","text":"无限制","html":""},{"label":"C","text":"1 个","html":""},{"label":"D","text":"2 个","html":""}],"blank_count":0,"missing_images":0},{"number":35,"source_number":35,"type":"单选题","score":2.0,"stem_html":"\u003cp>IIS 中创建证书申请文件的后缀是?()\u003c/p>","options":[{"label":"A","text":".crt","html":""},{"label":"B","text":".txt","html":""},{"label":"C","text":".cer","html":""},{"label":"D","text":".pfx","html":""}],"blank_count":0,"missing_images":0},{"number":36,"source_number":36,"type":"判断题","score":2.0,"stem_html":"IPC$空连接可以远程映射目标主机的C盘。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":37,"source_number":37,"type":"判断题","score":2.0,"stem_html":"IPC$ 是 Windows 独有的功能，Linux 系统无此概念。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":38,"source_number":38,"type":"判断题","score":2.0,"stem_html":"默认情况下，Windows系统会自动开启IPC.D$等隐藏共享。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":39,"source_number":39,"type":"判断题","score":2.0,"stem_html":"Web服务器申请证书时，无需向CA提交任何文件，直接在线申请即可。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":40,"source_number":40,"type":"判断题","score":2.0,"stem_html":"客户机必须导入CA证书，才能信任该CA颁发的所有证书。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":41,"source_number":41,"type":"判断题","score":2.0,"stem_html":"IPC$入侵只能通过管理员账号密码实现，无法留后门。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":42,"source_number":42,"type":"判断题","score":2.0,"stem_html":"防火墙拦截139.445端口可以有效防范IPC$入侵。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":43,"source_number":43,"type":"判断题","score":2.0,"stem_html":"数字证书的私钥存储在CA服务器中，用户无法获取。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":44,"source_number":44,"type":"判断题","score":2.0,"stem_html":"停止Server服务会导致文件共享.打印机共享功能失效。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":45,"source_number":45,"type":"判断题","score":2.0,"stem_html":"部署ADCS时，会自动安装IIS组件。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":46,"source_number":46,"type":"判断题","score":2.0,"stem_html":"独立根CA不需要活动目录（AD）支持。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":47,"source_number":47,"type":"判断题","score":2.0,"stem_html":"SSL协议在应用层和传输层之间工作。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":48,"source_number":48,"type":"判断题","score":2.0,"stem_html":"客户机访问HTTPS网站时，即使不信任CA证书，也能正常访问网站。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":49,"source_number":49,"type":"判断题","score":2.0,"stem_html":"HTTPS是HTTP+SSL的组合，端口为443。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":50,"source_number":50,"type":"判断题","score":2.0,"stem_html":"一个数字证书可以同时用于多个不同域名的Web站点。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0}]}</script>
+  <script src="../assets/exam.js"></script>
+</body>
+</html>

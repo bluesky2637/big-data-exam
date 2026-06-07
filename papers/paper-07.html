@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>面向对象分析与设计 | 离线模拟考试</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="exam-page">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="exam-topbar">
+    <a class="back-link" href="../index.html">← 返回试卷总览</a>
+    <div class="timer-panel" aria-label="答题计时">
+      <span class="timer-label">本次用时</span>
+      <strong id="timer">00:00:00</strong>
+    </div>
+    <button class="button button-quiet mobile-nav-button" id="mobile-nav-button" type="button">题号</button>
+  </header>
+
+  <main class="exam-shell">
+    <aside class="question-sidebar" id="question-sidebar">
+      <div class="sidebar-heading">
+        <span class="eyebrow">答题卡</span>
+        <button class="icon-button" id="close-nav" type="button" aria-label="关闭题号导航">×</button>
+      </div>
+      <div class="progress-ring" id="progress-ring" style="--progress: 0">
+        <span id="progress-percent">0%</span>
+      </div>
+      <div class="progress-copy"><strong id="answered-count">0</strong> / 22 已作答</div>
+      <nav class="question-grid" id="question-grid" aria-label="题号导航"></nav>
+      <div class="legend">
+        <span><i class="legend-dot answered"></i>已答</span>
+        <span><i class="legend-dot current"></i>当前</span>
+        <span><i class="legend-dot blank"></i>未答</span>
+      </div>
+    </aside>
+
+    <section class="exam-content">
+      <article class="paper-intro">
+        <div>
+          <span class="eyebrow">软件工程 · 2026-05-19</span>
+          <h1>面向对象分析与设计</h1>
+          <p>OOA、OOD、UML 与面向对象建模</p>
+          
+        </div>
+        <dl class="paper-facts">
+          <div><dt>题目</dt><dd>22</dd></div>
+          <div><dt>总分</dt><dd>33</dd></div>
+          <div><dt>专业方向</dt><dd>软件工程、计算机科学与技术</dd></div>
+        </dl>
+        
+        <div class="paper-note">
+          <strong>模拟作答模式</strong>
+          <span>本页面暂无参考答案，也不会自动评分。专业归属根据试题内容推断，不代表学校官方认定。</span>
+        </div>
+        
+        <p class="type-summary">判断题 2 · 单选题 16 · 填空题 4</p>
+      </article>
+
+      
+
+      <form id="exam-form" autocomplete="off">
+        <div id="questions"></div>
+      </form>
+
+      <section class="exam-actions" aria-label="试卷操作">
+        <div>
+          <strong>答题记录自动保存在本机浏览器中</strong>
+          <p id="storage-status">正在检查本地存储...</p>
+        </div>
+        <div class="action-buttons">
+          <button class="button button-quiet" id="export-button" type="button">导出记录</button>
+          <label class="button button-quiet" for="import-input">导入记录</label>
+          <input id="import-input" type="file" accept="application/json,.json" hidden>
+          <button class="button button-quiet" id="print-button" type="button">打印试卷</button>
+          
+          <button class="button button-danger" id="reset-button" type="button">重新作答</button>
+          <button class="button button-primary" id="submit-button" type="button">交卷</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="summary-modal" hidden>
+    <section class="summary-modal" role="dialog" aria-modal="true" aria-labelledby="summary-title">
+      <span class="eyebrow">交卷摘要</span>
+      <h2 id="summary-title">答题记录已封存</h2>
+      <div class="summary-numbers">
+        <div><strong id="summary-answered">0</strong><span>已答</span></div>
+        <div><strong id="summary-unanswered">0</strong><span>未答</span></div>
+        <div><strong id="summary-time">00:00:00</strong><span>用时</span></div>
+      </div>
+      <p>模拟考试只统计完成情况，不显示答案或分数。记录仍可导出或打印。</p>
+      <button class="button button-primary" id="close-summary" type="button">查看答卷</button>
+    </section>
+  </div>
+
+  <script id="exam-data" type="application/json">{"id":"paper-07","title":"面向对象分析与设计","short_title":"面向对象分析设计","date":"2026-05-19","course":"OOA、OOD、UML 与面向对象建模","majors":["软件工程","计算机科学与技术"],"category":"软件工程","question_count":22,"total_score":33.0,"type_counts":{"判断题":2,"单选题":16,"填空题":4},"source_file":"考试系统 (2026_5_19 14：44：03).html","source_sha256":"4fb8dc688902c301db3c1a3ec4e6da655d7745d43073731bdd6cca2e7ce288b5","has_answers":false,"questions":[{"number":1,"source_number":1,"type":"判断题","score":1.0,"stem_html":"面向对象开发技术因其封装、继承、多态特性，更有利于实现软件构件的复用。（ ）","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":2,"source_number":2,"type":"单选题","score":1.0,"stem_html":"在面向对象软件方法中，“类”是（ ）。","options":[{"label":"A","text":"具有同类数据和相同操作的对象的定义","html":""},{"label":"B","text":"具有同类数据的对象的定义","html":""},{"label":"C","text":"具有相同操作的对象的集合","html":""},{"label":"D","text":"具有同类数据的对象的集合","html":""}],"blank_count":0,"missing_images":0},{"number":3,"source_number":3,"type":"单选题","score":1.0,"stem_html":"面向对象设计OOD模型的主要部件中，通常不包括（ ）。","options":[{"label":"A","text":"人机交互部件","html":""},{"label":"B","text":"通信部件","html":""},{"label":"C","text":"任务管理","html":""},{"label":"D","text":"数据管理","html":""}],"blank_count":0,"missing_images":0},{"number":4,"source_number":4,"type":"单选题","score":1.0,"stem_html":"在用面向对象观点建立起的3种模型中，（ ）是最基本、最重要、最核心的。","options":[{"label":"A","text":"功能模型","html":""},{"label":"B","text":"动态模型","html":""},{"label":"C","text":"对象模型","html":""},{"label":"D","text":"行为模型","html":""}],"blank_count":0,"missing_images":0},{"number":5,"source_number":5,"type":"单选题","score":1.0,"stem_html":"所有的对象可以成为各种对象类，每个对象类都定义了一组（ ）。","options":[{"label":"A","text":"过程","html":""},{"label":"B","text":"类型","html":""},{"label":"C","text":"说明","html":""},{"label":"D","text":"方法","html":""}],"blank_count":0,"missing_images":0},{"number":6,"source_number":6,"type":"填空题","score":5.0,"stem_html":"OOSE方法采用5类模型建立目标系统，这5类模型是\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>。","options":[],"blank_count":5,"missing_images":0},{"number":7,"source_number":7,"type":"单选题","score":1.0,"stem_html":"下面关于面向对象分析与面向对象设计的说法，不正确的是（ ）。","options":[{"label":"A","text":"面向对象分析描述软件要做什么","html":""},{"label":"B","text":"面向对象设计不关注技术和实现层面的细节","html":""},{"label":"C","text":"面向对象设计侧重于理解解决方案","html":""},{"label":"D","text":"面向对象分析侧重于理解问题","html":""}],"blank_count":0,"missing_images":0},{"number":8,"source_number":8,"type":"单选题","score":1.0,"stem_html":"（ ）细化原有的分析对象，确定一些新的对象，对每一个子系统接口和类进行准确详细的说明。","options":[{"label":"A","text":"用户界面设计","html":""},{"label":"B","text":"系统设计","html":""},{"label":"C","text":"对象设计","html":""},{"label":"D","text":"数据库设计","html":""}],"blank_count":0,"missing_images":0},{"number":9,"source_number":9,"type":"单选题","score":1.0,"stem_html":"在面向对象方法中，信息隐蔽是通过对象的（ ）来实现的。","options":[{"label":"A","text":"共享性","html":""},{"label":"B","text":"分类性","html":""},{"label":"C","text":"继承性","html":""},{"label":"D","text":"封装性","html":""}],"blank_count":0,"missing_images":0},{"number":10,"source_number":10,"type":"单选题","score":1.0,"stem_html":"UML中的 ( )描述一组用例、参与者及它们之间的关系。","options":[{"label":"A","text":"用例图","html":""},{"label":"B","text":"状态图","html":""},{"label":"C","text":"顺序图","html":""},{"label":"D","text":"活动图","html":""}],"blank_count":0,"missing_images":0},{"number":11,"source_number":11,"type":"单选题","score":1.0,"stem_html":"UML中的( )是强调消息的时间次序的交互图。","options":[{"label":"A","text":"状态图","html":""},{"label":"B","text":"用例图","html":""},{"label":"C","text":"顺序图","html":""},{"label":"D","text":"活动图","html":""}],"blank_count":0,"missing_images":0},{"number":12,"source_number":12,"type":"单选题","score":1.0,"stem_html":"下列关于面向对象分析与设计说法错误的是（ ）。","options":[{"label":"A","text":"面向对象的设计是面向对象分析的另一种思维方式","html":""},{"label":"B","text":"面向对象的设计以面向对象分析为基础归纳出类","html":""},{"label":"C","text":"面向对象的设计是面向对象分析进一步的细化和更高的抽象","html":""},{"label":"D","text":"建立类结构或进一步构造成类库，实现分析结果对问题空间的抽象","html":""}],"blank_count":0,"missing_images":0},{"number":13,"source_number":13,"type":"单选题","score":1.0,"stem_html":"面向对象分析中，学生属于某个班级，则学生和班级两个事物之间属于 ( )。","options":[{"label":"A","text":"泛化关系","html":""},{"label":"B","text":"关联关系","html":""},{"label":"C","text":"依赖关系","html":""},{"label":"D","text":"实现关系","html":""}],"blank_count":0,"missing_images":0},{"number":14,"source_number":14,"type":"填空题","score":3.0,"stem_html":"对象具有的三要素是\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>。","options":[],"blank_count":3,"missing_images":0},{"number":15,"source_number":15,"type":"单选题","score":1.0,"stem_html":"面向对象分析是对系统进行（ ）的一种方法。","options":[{"label":"A","text":"程序设计","html":""},{"label":"B","text":"测试验收","html":""},{"label":"C","text":"设计评审","html":""},{"label":"D","text":"需求建模","html":""}],"blank_count":0,"missing_images":0},{"number":16,"source_number":16,"type":"填空题","score":5.0,"stem_html":"面向对象设计的准则包括\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>，\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>。","options":[],"blank_count":5,"missing_images":0},{"number":17,"source_number":17,"type":"单选题","score":1.0,"stem_html":"面向对象的分析方法主要是建立三类模型，即( )。","options":[{"label":"A","text":"对象模型、动态模型、功能模型","html":""},{"label":"B","text":"系统模型、ER 模型、应用模型","html":""},{"label":"C","text":"对象模型、动态模型、应用模型","html":""},{"label":"D","text":"ER 模型、对象模型、功能模型","html":""}],"blank_count":0,"missing_images":0},{"number":18,"source_number":18,"type":"单选题","score":1.0,"stem_html":"在用例图中，以下哪种关系()用于表示某个用例必须执行另一个用例的功能才能完成其目标。","options":[{"label":"A","text":"泛化","html":""},{"label":"B","text":"包含","html":""},{"label":"C","text":"关联","html":""},{"label":"D","text":"扩展","html":""}],"blank_count":0,"missing_images":0},{"number":19,"source_number":19,"type":"单选题","score":1.0,"stem_html":"面向对象分析阶段建立的3种模型中，核心的模型是（ ）模型。","options":[{"label":"A","text":"对象","html":""},{"label":"B","text":"分析","html":""},{"label":"C","text":"动态","html":""},{"label":"D","text":"功能","html":""}],"blank_count":0,"missing_images":0},{"number":20,"source_number":20,"type":"填空题","score":2.0,"stem_html":"OOD可细分为\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>和\u003cspan class=\"source-blank\" aria-hidden=\"true\">______\u003c/span>。","options":[],"blank_count":2,"missing_images":0},{"number":21,"source_number":21,"type":"判断题","score":1.0,"stem_html":"人机交互的交互内容需求不仅与系统的功能需求有关，而且与人的主观意识也有很大关系。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0},{"number":22,"source_number":22,"type":"单选题","score":1.0,"stem_html":"采用面向对象方法开发软件的过程中，抽取和整理用户需求并建立问题域精确模型的过程叫（  ）。","options":[{"label":"A","text":"面向对象实现","html":""},{"label":"B","text":"面向对象设计","html":""},{"label":"C","text":"面向对象分析","html":""},{"label":"D","text":"面向对象测试","html":""}],"blank_count":0,"missing_images":0}]}</script>
+  <script src="../assets/exam.js"></script>
+</body>
+</html>

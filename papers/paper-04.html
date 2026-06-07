@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>软件测试边界值案例 | 离线模拟考试</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="exam-page">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="exam-topbar">
+    <a class="back-link" href="../index.html">← 返回试卷总览</a>
+    <div class="timer-panel" aria-label="答题计时">
+      <span class="timer-label">本次用时</span>
+      <strong id="timer">00:00:00</strong>
+    </div>
+    <button class="button button-quiet mobile-nav-button" id="mobile-nav-button" type="button">题号</button>
+  </header>
+
+  <main class="exam-shell">
+    <aside class="question-sidebar" id="question-sidebar">
+      <div class="sidebar-heading">
+        <span class="eyebrow">答题卡</span>
+        <button class="icon-button" id="close-nav" type="button" aria-label="关闭题号导航">×</button>
+      </div>
+      <div class="progress-ring" id="progress-ring" style="--progress: 0">
+        <span id="progress-percent">0%</span>
+      </div>
+      <div class="progress-copy"><strong id="answered-count">0</strong> / 1 已作答</div>
+      <nav class="question-grid" id="question-grid" aria-label="题号导航"></nav>
+      <div class="legend">
+        <span><i class="legend-dot answered"></i>已答</span>
+        <span><i class="legend-dot current"></i>当前</span>
+        <span><i class="legend-dot blank"></i>未答</span>
+      </div>
+    </aside>
+
+    <section class="exam-content">
+      <article class="paper-intro">
+        <div>
+          <span class="eyebrow">软件工程 · 2026-05-21</span>
+          <h1>软件测试边界值案例</h1>
+          <p>软件测试中的完美边界值分析</p>
+          
+        </div>
+        <dl class="paper-facts">
+          <div><dt>题目</dt><dd>1</dd></div>
+          <div><dt>总分</dt><dd>7</dd></div>
+          <div><dt>专业方向</dt><dd>软件工程、软件测试</dd></div>
+        </dl>
+        
+        <div class="paper-note">
+          <strong>模拟作答模式</strong>
+          <span>本页面暂无参考答案，也不会自动评分。专业归属根据试题内容推断，不代表学校官方认定。</span>
+        </div>
+        
+        <p class="type-summary">案例分析 1</p>
+      </article>
+
+      
+
+      <form id="exam-form" autocomplete="off">
+        <div id="questions"></div>
+      </form>
+
+      <section class="exam-actions" aria-label="试卷操作">
+        <div>
+          <strong>答题记录自动保存在本机浏览器中</strong>
+          <p id="storage-status">正在检查本地存储...</p>
+        </div>
+        <div class="action-buttons">
+          <button class="button button-quiet" id="export-button" type="button">导出记录</button>
+          <label class="button button-quiet" for="import-input">导入记录</label>
+          <input id="import-input" type="file" accept="application/json,.json" hidden>
+          <button class="button button-quiet" id="print-button" type="button">打印试卷</button>
+          
+          <button class="button button-danger" id="reset-button" type="button">重新作答</button>
+          <button class="button button-primary" id="submit-button" type="button">交卷</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="summary-modal" hidden>
+    <section class="summary-modal" role="dialog" aria-modal="true" aria-labelledby="summary-title">
+      <span class="eyebrow">交卷摘要</span>
+      <h2 id="summary-title">答题记录已封存</h2>
+      <div class="summary-numbers">
+        <div><strong id="summary-answered">0</strong><span>已答</span></div>
+        <div><strong id="summary-unanswered">0</strong><span>未答</span></div>
+        <div><strong id="summary-time">00:00:00</strong><span>用时</span></div>
+      </div>
+      <p>模拟考试只统计完成情况，不显示答案或分数。记录仍可导出或打印。</p>
+      <button class="button button-primary" id="close-summary" type="button">查看答卷</button>
+    </section>
+  </div>
+
+  <script id="exam-data" type="application/json">{"id":"paper-04","title":"软件测试边界值案例","short_title":"边界值测试案例","date":"2026-05-21","course":"软件测试中的完美边界值分析","majors":["软件工程","软件测试"],"category":"软件工程","question_count":1,"total_score":7.0,"type_counts":{"案例分析":1},"source_file":"考试系统 (2026_5_21 19：16：59).html","source_sha256":"613b9c586bc934f89f954c0724077510623e5a770b33fe5718b5c267cf024c77","has_answers":false,"questions":[{"number":1,"source_number":1,"type":"案例分析","score":7.0,"stem_html":"\u003cp>\u003cp>教务管理系统成绩录入模块，仅支持录入整数形式课程考核成绩，系统设定合法成绩取值范围为0 分～100 分，录入数据超出该范围时系统自动判定数据非法并拒绝保存，范围内数据正常完成录入存档，请完成完美边界值测试用例设计。\u003cp>预期结果参考选项：A. 成绩合规，成功完成数据录入保存；B.  成绩超出合法范围，系统拒绝录入并提示错误；C. 成绩格式错误，系统提示请输入整数\u003cp>所选边界值与预期结果对应正确得1分，对应不正确不得分。\u003c/p>\u003c/p>\u003c/p>\u003c/p>","options":[],"blank_count":0,"missing_images":0}]}</script>
+  <script src="../assets/exam.js"></script>
+</body>
+</html>

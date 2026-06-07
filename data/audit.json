@@ -1,0 +1,164 @@
+{
+  "generated": "2026-06-07",
+  "paper_count": 11,
+  "question_count": 665,
+  "question_counts": [
+    4,
+    92,
+    72,
+    1,
+    3,
+    50,
+    22,
+    38,
+    226,
+    27,
+    130
+  ],
+  "image_count": 7,
+  "papers": [
+    {
+      "id": "paper-01",
+      "title": "网络配置与网络安全综合小测",
+      "source_file": "整卷预览 (2026_6_5 14：48：57).html",
+      "source_sha256": "42ecff5277d1639905454d80d25343bba37cda356b5a16d7e079cb5e107fa4f7",
+      "question_count": 4,
+      "answer_count": 0,
+      "type_counts": {
+        "单选题": 1,
+        "填空题": 2,
+        "判断题": 1
+      }
+    },
+    {
+      "id": "paper-02",
+      "title": "Web 前端开发期末练习",
+      "source_file": "exam_2026_6_3_081143.html",
+      "source_sha256": "e9a407099821532ed3b550cce31cbf6a4b81e8015b9c9211c14ad4f562f3613d",
+      "question_count": 92,
+      "answer_count": 0,
+      "type_counts": {
+        "单选题": 40,
+        "多选题": 1,
+        "填空题": 20,
+        "主观题": 1,
+        "判断题": 30
+      }
+    },
+    {
+      "id": "paper-03",
+      "title": "大数据小测",
+      "source_file": "考试系统 (2026_5_26 16：02：16).html",
+      "source_sha256": "cba98bb3755c93e978466b103f22508f5df0fa302172b3a290e313e08cedb66c",
+      "question_count": 72,
+      "answer_count": 72,
+      "type_counts": {
+        "单选题": 40,
+        "多选题": 8,
+        "判断题": 10,
+        "主观题": 4,
+        "填空题": 10
+      }
+    },
+    {
+      "id": "paper-04",
+      "title": "软件测试边界值案例",
+      "source_file": "考试系统 (2026_5_21 19：16：59).html",
+      "source_sha256": "613b9c586bc934f89f954c0724077510623e5a770b33fe5718b5c267cf024c77",
+      "question_count": 1,
+      "answer_count": 0,
+      "type_counts": {
+        "案例分析": 1
+      }
+    },
+    {
+      "id": "paper-05",
+      "title": "软件工程数据流图案例",
+      "source_file": "考试系统 (2026_5_21 18：00：13).html",
+      "source_sha256": "56e9280b7d6dd9531075200ee162168f94dc7b5de32f734a518af7eb4bf065ac",
+      "question_count": 3,
+      "answer_count": 0,
+      "type_counts": {
+        "案例分析": 3
+      }
+    },
+    {
+      "id": "paper-06",
+      "title": "Windows 网络安全与 PKI",
+      "source_file": "考试系统 (2026_5_21 16：25：52).html",
+      "source_sha256": "906c22ea633731921d766596d5c10832853735da44b836c0baeddc9d52baa589",
+      "question_count": 50,
+      "answer_count": 0,
+      "type_counts": {
+        "单选题": 35,
+        "判断题": 15
+      }
+    },
+    {
+      "id": "paper-07",
+      "title": "面向对象分析与设计",
+      "source_file": "考试系统 (2026_5_19 14：44：03).html",
+      "source_sha256": "4fb8dc688902c301db3c1a3ec4e6da655d7745d43073731bdd6cca2e7ce288b5",
+      "question_count": 22,
+      "answer_count": 0,
+      "type_counts": {
+        "判断题": 2,
+        "单选题": 16,
+        "填空题": 4
+      }
+    },
+    {
+      "id": "paper-08",
+      "title": "大数据导论综合练习",
+      "source_file": "考试系统 (2026_5_17 22：45：52)大数据.html",
+      "source_sha256": "7f0de803de969cbedbe4581333be94083fc8a8224d5c7bf02e49a40b726b722d",
+      "question_count": 38,
+      "answer_count": 38,
+      "type_counts": {
+        "填空题": 7,
+        "单选题": 15,
+        "判断题": 4,
+        "主观题": 6,
+        "多选题": 6
+      }
+    },
+    {
+      "id": "paper-09",
+      "title": "大数据客观题题库",
+      "source_file": "考试系统 (2026_6_7 12：54：20).html",
+      "source_sha256": "4fe5d3953a36fd64689757932245da24297b27df58c2949e1b81ef96a74dffff",
+      "question_count": 226,
+      "answer_count": 226,
+      "type_counts": {
+        "多选题": 18,
+        "单选题": 155,
+        "填空题": 13,
+        "判断题": 40
+      }
+    },
+    {
+      "id": "paper-10",
+      "title": "大数据主观题题库",
+      "source_file": "考试系统 (2026_6_7 12：55：41).html",
+      "source_sha256": "f9cc77dddf13df7343be3b6ebde8bb2b41869a8e36073dbb07b0b8df53fb8465",
+      "question_count": 27,
+      "answer_count": 27,
+      "type_counts": {
+        "主观题": 27
+      }
+    },
+    {
+      "id": "paper-11",
+      "title": "大数据6.7.8章测试",
+      "source_file": "考试系统 (2026_6_7 12：56：35).html",
+      "source_sha256": "d037f04cbf0e2a4c2af7dfcd59bc664340051422c860bfb43a793477de4cd812",
+      "question_count": 130,
+      "answer_count": 130,
+      "type_counts": {
+        "单选题": 100,
+        "判断题": 20,
+        "填空题": 10
+      }
+    }
+  ]
+}

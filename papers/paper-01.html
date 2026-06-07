@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>网络配置与网络安全综合小测 | 离线模拟考试</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="exam-page">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="exam-topbar">
+    <a class="back-link" href="../index.html">← 返回试卷总览</a>
+    <div class="timer-panel" aria-label="答题计时">
+      <span class="timer-label">本次用时</span>
+      <strong id="timer">00:00:00</strong>
+    </div>
+    <button class="button button-quiet mobile-nav-button" id="mobile-nav-button" type="button">题号</button>
+  </header>
+
+  <main class="exam-shell">
+    <aside class="question-sidebar" id="question-sidebar">
+      <div class="sidebar-heading">
+        <span class="eyebrow">答题卡</span>
+        <button class="icon-button" id="close-nav" type="button" aria-label="关闭题号导航">×</button>
+      </div>
+      <div class="progress-ring" id="progress-ring" style="--progress: 0">
+        <span id="progress-percent">0%</span>
+      </div>
+      <div class="progress-copy"><strong id="answered-count">0</strong> / 4 已作答</div>
+      <nav class="question-grid" id="question-grid" aria-label="题号导航"></nav>
+      <div class="legend">
+        <span><i class="legend-dot answered"></i>已答</span>
+        <span><i class="legend-dot current"></i>当前</span>
+        <span><i class="legend-dot blank"></i>未答</span>
+      </div>
+    </aside>
+
+    <section class="exam-content">
+      <article class="paper-intro">
+        <div>
+          <span class="eyebrow">网络与安全 · 2026-06-05</span>
+          <h1>网络配置与网络安全综合小测</h1>
+          <p>计算机网络配置、NAT、RIP 与 HTTPS/CA</p>
+          
+        </div>
+        <dl class="paper-facts">
+          <div><dt>题目</dt><dd>4</dd></div>
+          <div><dt>总分</dt><dd>20</dd></div>
+          <div><dt>专业方向</dt><dd>计算机网络技术、信息安全</dd></div>
+        </dl>
+        
+        <div class="paper-note">
+          <strong>模拟作答模式</strong>
+          <span>本页面暂无参考答案，也不会自动评分。专业归属根据试题内容推断，不代表学校官方认定。</span>
+        </div>
+        
+        <p class="type-summary">单选题 1 · 填空题 2 · 判断题 1</p>
+      </article>
+
+      
+
+      <form id="exam-form" autocomplete="off">
+        <div id="questions"></div>
+      </form>
+
+      <section class="exam-actions" aria-label="试卷操作">
+        <div>
+          <strong>答题记录自动保存在本机浏览器中</strong>
+          <p id="storage-status">正在检查本地存储...</p>
+        </div>
+        <div class="action-buttons">
+          <button class="button button-quiet" id="export-button" type="button">导出记录</button>
+          <label class="button button-quiet" for="import-input">导入记录</label>
+          <input id="import-input" type="file" accept="application/json,.json" hidden>
+          <button class="button button-quiet" id="print-button" type="button">打印试卷</button>
+          
+          <button class="button button-danger" id="reset-button" type="button">重新作答</button>
+          <button class="button button-primary" id="submit-button" type="button">交卷</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="summary-modal" hidden>
+    <section class="summary-modal" role="dialog" aria-modal="true" aria-labelledby="summary-title">
+      <span class="eyebrow">交卷摘要</span>
+      <h2 id="summary-title">答题记录已封存</h2>
+      <div class="summary-numbers">
+        <div><strong id="summary-answered">0</strong><span>已答</span></div>
+        <div><strong id="summary-unanswered">0</strong><span>未答</span></div>
+        <div><strong id="summary-time">00:00:00</strong><span>用时</span></div>
+      </div>
+      <p>模拟考试只统计完成情况，不显示答案或分数。记录仍可导出或打印。</p>
+      <button class="button button-primary" id="close-summary" type="button">查看答卷</button>
+    </section>
+  </div>
+
+  <script id="exam-data" type="application/json">{"id":"paper-01","title":"网络配置与网络安全综合小测","short_title":"网络综合小测","date":"2026-06-05","course":"计算机网络配置、NAT、RIP 与 HTTPS/CA","majors":["计算机网络技术","信息安全"],"category":"网络与安全","question_count":4,"total_score":20.0,"type_counts":{"单选题":1,"填空题":2,"判断题":1},"source_file":"整卷预览 (2026_6_5 14：48：57).html","source_sha256":"42ecff5277d1639905454d80d25343bba37cda356b5a16d7e079cb5e107fa4f7","has_answers":false,"questions":[{"number":1,"source_number":1,"type":"单选题","score":5.0,"stem_html":"访问 CA 证书申请页面的默认地址是?(        )","options":[{"label":"A","text":"http://IP/certsrv/"},{"label":"B","text":"https://IP/ca/"},{"label":"C","text":"http://IP/ca/"},{"label":"D","text":"https://IP/certsrv/"}],"blank_count":0,"missing_images":0},{"number":2,"source_number":2,"type":"填空题","score":5.0,"stem_html":"\u003cp>、下图为动态NAT配置实验的网络拓扑图。现需要在路由器Router-A上配置动态NAT，请补充相关指令。（每空1分）\u003c/p>\n\u003cp>\u003cfigure class=\"question-figure\">\u003cimg src=\"../assets/images/paper-01-q002-01.png\" alt=\"试题图片\">\u003c/figure>\u003c/p>\n\u003cp>Router-A(config)# interface fastethernet 0/0\u003c/p>\n\u003cp>Router-A(config-if)#                                                     （将fa 0/0端口定义为内部端口）\u003c/p>\n\u003cp>Router-A(config-if)#exit\u003c/p>\n\u003cp>Router-A(config)#interface fastethernet 0/1\u003c/p>\n\u003cp>Router-A(config-if)#                                                     \u003c/p>\n\u003cp>Router-A(config-if)#exit\u003c/p>\n\u003cp>Router-A(config)#ip nat pool jspi-nj                                                       netmask 255.255.255.0 \u003c/p>\n\u003cp>Router-A(config)#                                                     172.16.1.0 0.0.0.255 \u003c/p>\n\u003cp>Router-A(config)#                                                     jspi-nj  \u003c/p>\n\u003cp>Router-A(config)#end\u003c/p>\n\u003cp>Router-A#write memory\u003c/p>\n\u003cp>\u003cbr>\u003c/p>","options":[],"blank_count":5,"missing_images":0},{"number":3,"source_number":3,"type":"填空题","score":5.0,"stem_html":"\u003cp>请根据图 RIP路由配置拓扑图完成PC端配置\u003c/p>\n\u003cp> \u003cfigure class=\"question-figure\">\u003cimg src=\"../assets/images/paper-01-q003-01.png\" alt=\"试题图片\">\u003c/figure>\u003c/p>\n\u003cp>PC1:IP地址：                                 \u003c/p>\n\u003cp>子网掩码：                                      \u003c/p>\n\u003cp>默认网关：                                    \u003c/p>\n\u003cp>PC2:IP地址：                                   \u003c/p>\n\u003cp>子网掩码：                                      \u003c/p>\n\u003cp>默认网关：192.168.3.1\u003c/p>","options":[],"blank_count":5,"missing_images":0},{"number":4,"source_number":4,"type":"判断题","score":5.0,"stem_html":"HTTPS是HTTP+SSL的组合，端口为443。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0}]}</script>
+  <script src="../assets/exam.js"></script>
+</body>
+</html>
