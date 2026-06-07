@@ -2,7 +2,7 @@
   const paper = JSON.parse(document.querySelector("#exam-data").textContent);
   const hasAnswers = Boolean(paper.has_answers);
   const examStorageKey = `offline-exam:${paper.id}:v1`;
-  const practiceStorageKey = `offline-practice:${paper.id}:v1`;
+  const practiceStorageKey = `offline-practice:${paper.id}:v2`;
   const modeStorageKey = `offline-mode:${paper.id}:v1`;
   const questionsRoot = document.querySelector("#questions");
   const grid = document.querySelector("#question-grid");
@@ -20,9 +20,17 @@
   let examAnswers = {};
   let practice = emptyPracticeState();
 
+  function $(selector, root = document) {
+    return root.querySelector(selector);
+  }
+
+  function $all(selector, root = document) {
+    return [...root.querySelectorAll(selector)];
+  }
+
   function emptyPracticeState() {
     return {
-      version: 1,
+      version: 2,
       paperId: paper.id,
       savedAt: null,
       elapsed: 0,
@@ -46,6 +54,12 @@
     const node = document.createElement("span");
     node.textContent = value || "";
     return node.innerHTML;
+  }
+
+  function textFromHtml(value) {
+    const node = document.createElement("div");
+    node.innerHTML = value || "";
+    return node.textContent.replace(/\s+/g, " ").trim();
   }
 
   function renderControl(question) {
@@ -82,13 +96,120 @@
 
   function answerLabel(question) {
     const values = question.reference?.answer || [];
-    if (question.type === "单选题" || question.type === "多选题" || question.type === "判断题") {
-      return values.join("、");
-    }
+    if (["单选题", "多选题", "判断题"].includes(question.type)) return values.join("、");
     if (question.type === "填空题") {
       return values.map((value, index) => `第 ${index + 1} 空：${value}`).join("；");
     }
-    return "";
+    return values.join("；");
+  }
+
+  function answerTexts(question) {
+    const labels = new Set(question.reference?.answer || []);
+    return (question.options || [])
+      .filter((option) => labels.has(option.label))
+      .map((option) => `${option.label}. ${textFromHtml(option.html || option.text)}`)
+      .join("；");
+  }
+
+  function stemText(question) {
+    return textFromHtml(question.stem_html || "");
+  }
+
+  function haystack(question) {
+    return `${stemText(question)} ${(question.options || []).map((option) => option.text).join(" ")} ${answerTexts(question)} ${question.reference?.source || ""}`;
+  }
+
+  function detectTopic(question) {
+    const text = haystack(question);
+    const rules = [
+      [/MongoDB|Redis|Neo4j|Cassandra|NoSQL|文档数据库|键值数据库|图数据库|列族数据库/, "NoSQL 数据库类型和特点"],
+      [/关系数据库|SQL Server|DB2|Oracle|MySQL|ACID|主键|外键|关系模型|在线交易/, "关系数据库的基本概念"],
+      [/数据仓库|OLAP|面向主题|历史变化|管理决策/, "数据仓库的核心特征"],
+      [/数据湖|湖仓一体|对象存储|原始数据|元数据/, "数据湖与湖仓一体"],
+      [/HDFS|NameNode|DataNode|SecondaryNameNode|数据块|小文件|分布式文件系统|GFS/, "HDFS 分布式文件系统"],
+      [/HBase|行键|列族|列限定符|时间戳|单元格/, "HBase 数据模型"],
+      [/MapReduce|Shuffle|JobTracker|TaskTracker|Map 函数|Reduce|批处理/, "MapReduce 计算模型"],
+      [/Spark|RDD|Spark SQL|Spark Streaming|GraphX|MLlib|Structured Streaming/, "Spark 生态与内存计算"],
+      [/Flink|Storm|流计算|毫秒级|事件时间|摄入时间|处理时间|行级实时/, "流计算框架"],
+      [/云计算|云数据库|IaaS|PaaS|SaaS|按需付费|多租|多副本/, "云计算与云数据库"],
+      [/可视化|折线图|饼图|散点图|柱状图|漏斗图|桑基图|热力图|树图|词云图|雷达图|玫瑰图|日历图|Tableau|ECharts|Gephi|D3/, "数据可视化图表选择"],
+      [/机器学习|监督学习|无监督学习|分类|聚类|回归|决策树|朴素贝叶斯|支持向量机|K-Means|DBSCAN|逻辑回归|主成分分析/, "机器学习与数据挖掘算法"],
+      [/协同过滤|UserCF|ItemCF|ALS|基于用户|基于物品|推荐/, "推荐算法与协同过滤"],
+      [/关联规则|Apriori|FP-Growth|支持度|置信度|可信度|提升度|购物篮/, "关联规则挖掘"],
+      [/数据清洗|数据集成|数据转换|数据规约|标准化|离散化|采样|预处理/, "数据预处理流程"],
+      [/大数据|Volume|Velocity|Variety|Value|Veracity|计算模式/, "大数据基本概念"],
+    ];
+    const matched = rules.find(([pattern]) => pattern.test(text));
+    return matched ? matched[1] : "本题对应的基础概念";
+  }
+
+  function memoryTip(question) {
+    const text = haystack(question);
+    const tips = [
+      [/MongoDB/, "MongoDB = 文档型 NoSQL，不是关系数据库。"],
+      [/Redis/, "Redis = 键值数据库，常用于缓存和会话。"],
+      [/Neo4j/, "Neo4j = 图数据库，适合社交关系、路径关系。"],
+      [/HDFS.*128MB|128MB|数据块/, "HDFS 默认块大小常考 128MB，面向大文件。"],
+      [/NameNode/, "NameNode 管元数据，DataNode 存数据块。"],
+      [/SecondaryNameNode/, "SecondaryNameNode 不是热备，主要合并编辑日志。"],
+      [/HBase.*时间戳|时间戳/, "HBase 多版本靠时间戳区分。"],
+      [/HBase.*行键|行键/, "HBase 一行靠 RowKey 唯一定位。"],
+      [/HBase.*列族|列族/, "HBase 先分列族，再分列限定符。"],
+      [/Shuffle/, "Shuffle 是 Map 到 Reduce 的中转站，负责分组和排序。"],
+      [/MapReduce.*磁盘|延迟|迭代/, "MapReduce 中间结果落磁盘，所以慢、不适合迭代。"],
+      [/RDD/, "Spark 核心抽象是 RDD，特点是只读、可分区、可容错。"],
+      [/Spark Core/, "Spark Core 是 Spark 的核心底座。"],
+      [/GraphX/, "GraphX 负责 Spark 图计算。"],
+      [/Flink/, "Flink 偏真正流处理，低延迟是常考关键词。"],
+      [/数据仓库.*主题|面向主题/, "数据仓库四特征：面向主题、集成、稳定、历史变化。"],
+      [/数据湖/, "数据湖强调先存原始数据，结构化/半结构化/非结构化都能放。"],
+      [/湖仓一体/, "湖仓一体重点是打通湖和仓的数据、元数据。"],
+      [/IaaS|PaaS|SaaS/, "云计算三模式：IaaS、PaaS、SaaS。"],
+      [/折线图/, "看时间趋势选折线图。"],
+      [/饼图/, "看部分与整体选饼图。"],
+      [/散点图/, "看两个变量相关性选散点图。"],
+      [/柱状图/, "看类别大小比较选柱状图。"],
+      [/漏斗图/, "看转化流程选漏斗图。"],
+      [/桑基图/, "看流向、能量或数据流动选桑基图。"],
+      [/热力图/, "看密度、地理分布或热点选热力图。"],
+      [/词云图/, "看关键词频率选词云图。"],
+      [/聚类|K-Means|DBSCAN/, "聚类是无监督学习，典型场景是用户分群。"],
+      [/回归|线性回归|房价|销售额/, "回归预测连续数值，比如房价、销售额。"],
+      [/分类|决策树|朴素贝叶斯|支持向量机/, "分类预测类别标签，比如垃圾邮件、是否流失。"],
+      [/Apriori|FP-Growth/, "Apriori/FP-Growth 都是关联规则，FP-Growth 不生成候选集。"],
+      [/协同过滤|ItemCF|UserCF/, "人以群分是 UserCF，物以类聚是 ItemCF。"],
+      [/数据清洗/, "预处理第一步常考数据清洗。"],
+      [/数据标准化/, "标准化属于数据转换。"],
+      [/数据离散化/, "离散化常归到数据规约/转换相关考点。"],
+      [/Volume/, "Volume 表示数据量大。"],
+      [/Velocity/, "Velocity 表示产生和处理速度快。"],
+      [/Variety/, "Variety 表示数据类型多样。"],
+      [/Value/, "Value 表示价值密度低但总价值高。"],
+    ];
+    const matched = tips.find(([pattern]) => pattern.test(text));
+    if (matched) return matched[1];
+    if (question.type === "判断题") return "判断题先抓关键词，和教材核心表述一致就是对，不一致就是错。";
+    return "先记住题干中的核心名词，再把它和正确答案绑定起来。";
+  }
+
+  function learningExplanation(question) {
+    const topic = detectTopic(question);
+    const answer = escapeHtml(answerLabel(question));
+    const selected = answerTexts(question);
+    const selectedText = selected ? `正确答案对应的是：${escapeHtml(selected)}。` : `正确答案是：${answer}。`;
+    const source = question.reference?.source ? `这类题一般来自“${escapeHtml(question.reference.source)}”相关知识点。` : "";
+    const original = question.reference?.explanation || "";
+    const usefulOriginal = original && !/^正确内容为[:：]|^本题应填|题述/.test(original)
+      ? `补充理解：${escapeHtml(original)}`
+      : "";
+
+    if (["单选题", "多选题", "判断题"].includes(question.type)) {
+      return `本题考查${topic}。${selectedText}${source}${usefulOriginal ? usefulOriginal : ""}记忆点：${escapeHtml(memoryTip(question))}`;
+    }
+    if (question.type === "填空题") {
+      return `本题考查${topic}。填空题重点是把关键词写准确，本题应填：${answer}。${source}记忆点：${escapeHtml(memoryTip(question))}`;
+    }
+    return usefulOriginal || `本题考查${topic}。作答时先写核心概念，再结合题干补充原因和应用场景。`;
   }
 
   function renderReference(question) {
@@ -115,10 +236,10 @@
       <section class="feedback-panel" data-feedback="${question.number}" hidden aria-live="polite">
         <div class="feedback-verdict" data-verdict="${question.number}">参考答案</div>
         ${points}
-        <p class="reference-explanation">${escapeHtml(question.reference.explanation)}</p>
+        <p class="reference-explanation"><strong>解析：</strong>${learningExplanation(question)}</p>
         <footer>
-          <span>${escapeHtml(question.reference.source)}</span>
-          <span class="basis-badge">${escapeHtml(question.reference.basis)}</span>
+          <span>${escapeHtml(question.reference.source || "速记解析")}</span>
+          <span class="basis-badge">考试记忆版</span>
         </footer>
       </section>
       ${selfGrade}`;
@@ -146,7 +267,7 @@
         <section class="practice-empty" id="practice-empty" hidden>
           <span class="eyebrow">错题已清空</span>
           <h2>这一轮没有待复习的错题</h2>
-          <p>返回整套刷题继续练习，新的首次错题会自动加入错题记录。</p>
+          <p>返回整套刷题继续练习，新的错题会自动加入错题记录。</p>
           <button class="button button-primary" id="return-all-questions" type="button">返回整套刷题</button>
         </section>
       `);
@@ -162,13 +283,13 @@
     paper.questions.forEach((question) => {
       const name = `q-${question.number}`;
       if (question.type === "多选题") {
-        answers[question.number] = [...form.querySelectorAll(`input[name="${name}"]:checked`)].map((input) => input.value);
+        answers[question.number] = $all(`input[name="${name}"]:checked`, form).map((input) => input.value);
       } else if (question.type === "填空题") {
-        answers[question.number] = [...form.querySelectorAll(`input[data-question="${question.number}"]`)].map((input) => input.value);
+        answers[question.number] = $all(`input[data-question="${question.number}"]`, form).map((input) => input.value);
       } else if (question.type === "单选题" || question.type === "判断题") {
-        answers[question.number] = form.querySelector(`input[name="${name}"]:checked`)?.value || "";
+        answers[question.number] = $(`input[name="${name}"]:checked`, form)?.value || "";
       } else {
-        answers[question.number] = form.querySelector(`[name="${name}"]`)?.value || "";
+        answers[question.number] = $(`[name="${name}"]`, form)?.value || "";
       }
     });
     return answers;
@@ -184,12 +305,10 @@
 
   function clearForm() {
     form.reset();
-    form.querySelectorAll(".question-card").forEach((card) => {
-      card.classList.remove("answered", "practice-correct-state", "practice-wrong-state");
-    });
-    form.querySelectorAll(".option-row").forEach((row) => row.classList.remove("correct-option", "wrong-option"));
-    form.querySelectorAll(".feedback-panel").forEach((panel) => { panel.hidden = true; });
-    form.querySelectorAll(".self-grade").forEach((panel) => { panel.hidden = true; });
+    $all(".question-card", form).forEach((card) => card.classList.remove("answered", "practice-correct-state", "practice-wrong-state"));
+    $all(".option-row", form).forEach((row) => row.classList.remove("correct-option", "wrong-option"));
+    $all(".feedback-panel", form).forEach((panel) => { panel.hidden = true; });
+    $all(".self-grade", form).forEach((panel) => { panel.hidden = true; });
   }
 
   function applyAnswers(answers = {}) {
@@ -199,20 +318,14 @@
       const name = `q-${question.number}`;
       if (question.type === "多选题") {
         const selected = Array.isArray(value) ? value : [];
-        form.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
-          input.checked = selected.includes(input.value);
-        });
+        $all(`input[name="${name}"]`, form).forEach((input) => { input.checked = selected.includes(input.value); });
       } else if (question.type === "填空题") {
         const values = Array.isArray(value) ? value : [];
-        form.querySelectorAll(`input[data-question="${question.number}"]`).forEach((input, index) => {
-          input.value = values[index] || "";
-        });
+        $all(`input[data-question="${question.number}"]`, form).forEach((input, index) => { input.value = values[index] || ""; });
       } else if (question.type === "单选题" || question.type === "判断题") {
-        form.querySelectorAll(`input[name="${name}"]`).forEach((input) => {
-          input.checked = input.value === value;
-        });
+        $all(`input[name="${name}"]`, form).forEach((input) => { input.checked = input.value === value; });
       } else {
-        const input = form.querySelector(`[name="${name}"]`);
+        const input = $(`[name="${name}"]`, form);
         if (input) input.value = value || "";
       }
     });
@@ -224,6 +337,17 @@
     return { answers: examAnswers, answered, unanswered: paper.question_count - answered };
   }
 
+  function hasFirstResult(number) {
+    return Object.prototype.hasOwnProperty.call(practice.firstResults, number);
+  }
+
+  function activeWrongCount() {
+    return paper.questions.filter((question) => {
+      const record = practice.history[question.number];
+      return record?.wrong && !record?.mastered;
+    }).length;
+  }
+
   function practiceQuestionNumbers() {
     if (!wrongOnly) return paper.questions.map((question) => question.number);
     return paper.questions
@@ -232,10 +356,6 @@
         const record = practice.history[number];
         return record?.wrong && !record?.mastered;
       });
-  }
-
-  function hasFirstResult(number) {
-    return Object.prototype.hasOwnProperty.call(practice.firstResults, number);
   }
 
   function practiceProgress() {
@@ -250,24 +370,28 @@
     };
   }
 
-  function activeWrongCount() {
-    return paper.questions.filter((question) => {
-      const record = practice.history[question.number];
-      return record?.wrong && !record?.mastered;
-    }).length;
+  function updateWrongButton() {
+    const button = $("#wrong-only-button");
+    if (!button) return;
+    const count = activeWrongCount();
+    button.disabled = !wrongOnly && count === 0;
+    button.classList.toggle("active", wrongOnly);
+    button.innerHTML = wrongOnly
+      ? `返回整套刷题 <span>${count}</span>`
+      : `错题模式：只刷错题 <span id="wrong-count">${count}</span>`;
   }
 
   function updateSidebar() {
     if (mode === "exam") {
       const progress = examProgress();
       const percent = Math.round((progress.answered / paper.question_count) * 100);
-      document.querySelector("#answered-count").textContent = progress.answered;
-      document.querySelector("#progress-percent").textContent = `${percent}%`;
-      document.querySelector("#progress-ring").style.setProperty("--progress", percent);
+      $("#answered-count").textContent = progress.answered;
+      $("#progress-percent").textContent = `${percent}%`;
+      $("#progress-ring").style.setProperty("--progress", percent);
       paper.questions.forEach((question) => {
         const done = isAnswered(question, progress.answers[question.number]);
         grid.querySelector(`[data-nav="${question.number}"]`)?.classList.toggle("answered", done);
-        document.querySelector(`#question-${question.number}`)?.classList.toggle("answered", done);
+        $(`#question-${question.number}`)?.classList.toggle("answered", done);
       });
       return progress;
     }
@@ -275,15 +399,14 @@
     const stats = practiceProgress();
     const numbers = practiceQuestionNumbers();
     const percent = Math.round((stats.completed / paper.question_count) * 100);
-    document.querySelector("#answered-count").textContent = stats.completed;
-    document.querySelector("#progress-percent").textContent = `${percent}%`;
-    document.querySelector("#progress-ring").style.setProperty("--progress", percent);
-    document.querySelector("#practice-completed").textContent = stats.completed;
-    document.querySelector("#practice-correct").textContent = stats.correct;
-    document.querySelector("#practice-wrong").textContent = stats.wrong;
-    document.querySelector("#practice-rate").textContent = stats.rate === null ? "--" : `${stats.rate}%`;
-    document.querySelector("#wrong-count").textContent = activeWrongCount();
-    document.querySelector("#wrong-only-button").disabled = !wrongOnly && activeWrongCount() === 0;
+    $("#answered-count").textContent = stats.completed;
+    $("#progress-percent").textContent = `${percent}%`;
+    $("#progress-ring").style.setProperty("--progress", percent);
+    $("#practice-completed").textContent = stats.completed;
+    $("#practice-correct").textContent = stats.correct;
+    $("#practice-wrong").textContent = stats.wrong;
+    $("#practice-rate").textContent = stats.rate === null ? "--" : `${stats.rate}%`;
+    updateWrongButton();
 
     paper.questions.forEach((question) => {
       const link = grid.querySelector(`[data-nav="${question.number}"]`);
@@ -327,16 +450,12 @@
 
   function saveExam() {
     writeStorage(examStorageKey, examSnapshot());
-    if (canStore) {
-      storageStatus.textContent = `模拟考试已保存 · ${new Date().toLocaleTimeString("zh-CN", { hour12: false })}`;
-    }
+    if (canStore) storageStatus.textContent = `模拟考试已保存 · ${new Date().toLocaleTimeString("zh-CN", { hour12: false })}`;
   }
 
   function savePractice() {
     writeStorage(practiceStorageKey, practiceSnapshot());
-    if (canStore) {
-      storageStatus.textContent = `刷题记录已保存 · ${new Date().toLocaleTimeString("zh-CN", { hour12: false })}`;
-    }
+    if (canStore) storageStatus.textContent = `刷题记录已保存 · ${new Date().toLocaleTimeString("zh-CN", { hour12: false })}`;
   }
 
   function normalizePracticeState(saved) {
@@ -345,6 +464,7 @@
     return {
       ...fallback,
       ...saved,
+      version: 2,
       answers: saved.answers || {},
       firstResults: saved.firstResults || {},
       attempts: saved.attempts || {},
@@ -363,14 +483,12 @@
         examAnswers = savedExam.answers || {};
       }
       if (hasAnswers) {
-        const savedPractice = JSON.parse(localStorage.getItem(practiceStorageKey) || "null");
+        const savedPractice = JSON.parse(localStorage.getItem(practiceStorageKey) || localStorage.getItem(`offline-practice:${paper.id}:v1`) || "null");
         practice = normalizePracticeState(savedPractice);
         const savedMode = localStorage.getItem(modeStorageKey);
         mode = savedMode === "practice" ? "practice" : "exam";
       }
-      storageStatus.textContent = savedExam || practice.savedAt
-        ? "已恢复本机保存的学习记录。"
-        : "本地存储可用，开始作答后自动保存。";
+      storageStatus.textContent = savedExam || practice.savedAt ? "已恢复本机保存的学习记录。" : "本地存储可用，开始作答后自动保存。";
     } catch (error) {
       canStore = false;
       storageStatus.textContent = "无法读取本地记录，可使用导入/导出功能。";
@@ -395,19 +513,17 @@
 
   function lockForCurrentMode() {
     const lock = mode === "exam" && submitted;
-    form.querySelectorAll("input, textarea").forEach((control) => {
-      control.disabled = lock;
-    });
+    form.querySelectorAll("input, textarea").forEach((control) => { control.disabled = lock; });
     document.body.classList.toggle("is-submitted", lock);
-    document.querySelector("#submit-button").disabled = lock;
+    $("#submit-button").disabled = lock;
   }
 
   function showSummary() {
     const progress = examProgress();
-    document.querySelector("#summary-answered").textContent = progress.answered;
-    document.querySelector("#summary-unanswered").textContent = progress.unanswered;
-    document.querySelector("#summary-time").textContent = formatTime(examElapsed);
-    document.querySelector("#summary-modal").hidden = false;
+    $("#summary-answered").textContent = progress.answered;
+    $("#summary-unanswered").textContent = progress.unanswered;
+    $("#summary-time").textContent = formatTime(examElapsed);
+    $("#summary-modal").hidden = false;
   }
 
   function referenceCorrectLabels(question) {
@@ -421,9 +537,7 @@
   function isPracticeCorrect(question, value) {
     const reference = question.reference;
     if (!reference) return false;
-    if (question.type === "单选题" || question.type === "判断题") {
-      return value === reference.answer[0];
-    }
+    if (question.type === "单选题" || question.type === "判断题") return value === reference.answer[0];
     if (question.type === "多选题") {
       const selected = new Set(Array.isArray(value) ? value : []);
       const expected = new Set(reference.answer);
@@ -441,18 +555,19 @@
   }
 
   function showReference(question, verdictText = "参考答案", verdictClass = "") {
-    const panel = document.querySelector(`[data-feedback="${question.number}"]`);
-    const verdict = document.querySelector(`[data-verdict="${question.number}"]`);
+    const panel = $(`[data-feedback="${question.number}"]`);
+    const verdict = $(`[data-verdict="${question.number}"]`);
     if (!panel || !verdict) return;
     panel.hidden = false;
     verdict.textContent = verdictText;
     verdict.className = `feedback-verdict ${verdictClass}`.trim();
-    const selfGrade = document.querySelector(`[data-self-grade="${question.number}"]`);
+    const selfGrade = $(`[data-self-grade="${question.number}"]`);
     if (selfGrade) selfGrade.hidden = false;
   }
 
   function paintObjectiveResult(question, value, correct) {
-    const card = document.querySelector(`#question-${question.number}`);
+    const card = $(`#question-${question.number}`);
+    if (!card) return;
     card.classList.toggle("practice-correct-state", correct);
     card.classList.toggle("practice-wrong-state", !correct);
     if (["单选题", "多选题", "判断题"].includes(question.type)) {
@@ -471,26 +586,24 @@
     const firstAttempt = !hasFirstResult(number);
     practice.attempts[number] = (Number(practice.attempts[number]) || 0) + 1;
     practice.latestResults[number] = correct;
-    if (firstAttempt) {
-      practice.firstResults[number] = correct;
-      if (!correct) {
-        practice.history[number] = {
-          wrong: true,
-          mastered: false,
-          attempts: (practice.history[number]?.attempts || 0) + 1,
-          lastWrongAt: new Date().toISOString(),
-        };
-      }
-    }
-    if (wrongOnly) {
-      const history = practice.history[number] || { attempts: 0 };
+    if (firstAttempt) practice.firstResults[number] = correct;
+
+    const history = practice.history[number] || { attempts: 0 };
+    if (!correct) {
       practice.history[number] = {
         ...history,
-        wrong: !correct,
-        mastered: correct,
+        wrong: true,
+        mastered: false,
         attempts: (history.attempts || 0) + 1,
-        masteredAt: correct ? new Date().toISOString() : history.masteredAt,
-        lastWrongAt: correct ? history.lastWrongAt : new Date().toISOString(),
+        lastWrongAt: new Date().toISOString(),
+      };
+    } else if (wrongOnly || history.wrong) {
+      practice.history[number] = {
+        ...history,
+        wrong: Boolean(history.wrong),
+        mastered: true,
+        attempts: (history.attempts || 0) + 1,
+        masteredAt: new Date().toISOString(),
       };
     }
   }
@@ -506,13 +619,12 @@
     const correct = isPracticeCorrect(question, value);
     recordPracticeResult(question, correct);
     paintObjectiveResult(question, value, correct);
-    const retryNote = practice.firstResults[question.number] === false && correct
-      ? "（本次已答对，首次结果仍计为错误）"
-      : "";
+    const correctAnswer = answerLabel(question);
+    const retryNote = practice.firstResults[question.number] === false && correct ? "（本次已答对，首次结果仍计为错误）" : "";
     const masteredNote = wrongOnly && correct ? "（已掌握，将移出错题列表）" : "";
     showReference(
       question,
-      correct ? `回答正确 ${retryNote}${masteredNote}` : "回答错误，请看正确答案",
+      correct ? `回答正确 ${retryNote}${masteredNote}` : `回答错误，正确答案：${correctAnswer}`,
       correct ? "correct" : "wrong",
     );
     updateSidebar();
@@ -522,13 +634,11 @@
 
   function restorePracticeFeedback() {
     paper.questions.forEach((question) => {
-      if (practice.revealed[question.number]) {
-        showReference(question);
-      }
+      if (practice.revealed[question.number]) showReference(question);
       if (Object.prototype.hasOwnProperty.call(practice.latestResults, question.number)) {
         const correct = practice.latestResults[question.number];
         paintObjectiveResult(question, practice.answers[question.number], correct);
-        showReference(question, correct ? "最近一次回答正确" : "最近一次回答错误", correct ? "correct" : "wrong");
+        showReference(question, correct ? "最近一次回答正确" : `最近一次回答错误，正确答案：${answerLabel(question)}`, correct ? "correct" : "wrong");
       }
     });
   }
@@ -538,10 +648,11 @@
     const numbers = practiceQuestionNumbers();
     const visibleNumbers = new Set(numbers);
     const empty = numbers.length === 0;
-    const emptyPanel = document.querySelector("#practice-empty");
-    emptyPanel.hidden = !empty;
+    const emptyPanel = $("#practice-empty");
+    if (emptyPanel) emptyPanel.hidden = !empty;
     paper.questions.forEach((question) => {
-      document.querySelector(`#question-${question.number}`).hidden = !visibleNumbers.has(question.number);
+      const card = $(`#question-${question.number}`);
+      if (card) card.hidden = !visibleNumbers.has(question.number);
     });
     updateSidebar();
   }
@@ -551,13 +662,11 @@
     if (!numbers.includes(number)) return;
     grid.querySelectorAll("a").forEach((link) => link.classList.remove("current"));
     grid.querySelector(`[data-nav="${number}"]`)?.classList.add("current");
-    if (scroll) {
-      document.querySelector(`#question-${number}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (scroll) $(`#question-${number}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function switchMode(nextMode, { initial = false } = {}) {
-    if (!hasAnswers || nextMode === mode && !initial) return;
+    if (!hasAnswers || (nextMode === mode && !initial)) return;
     if (!initial) {
       if (mode === "exam") {
         examAnswers = collectAnswers();
@@ -575,20 +684,19 @@
       button.classList.toggle("active", button.dataset.mode === mode);
       button.setAttribute("aria-pressed", String(button.dataset.mode === mode));
     });
-    document.querySelector("#practice-panel").hidden = mode !== "practice";
-    document.querySelector("#submit-button").hidden = mode === "practice";
-    document.querySelector("#reset-button").hidden = mode === "practice";
+    $("#practice-panel").hidden = mode !== "practice";
+    $("#submit-button").hidden = mode === "practice";
+    $("#reset-button").hidden = mode === "practice";
     document.querySelectorAll(".practice-action").forEach((button) => { button.hidden = mode !== "practice"; });
-    document.querySelector("#mode-note-title").textContent = mode === "practice" ? "快速刷题模式" : "模拟考试模式";
-    document.querySelector("#mode-note-copy").textContent = mode === "practice"
-      ? "整套题按题号从上到下连续练习；选择后即时判定，首次结果用于正确率。主观题对照参考要点自行评价。"
-      : "模拟考试不显示答案、不自动评分；切换到快速刷题可即时判定并查看教材解析。";
+    $("#mode-note-title").textContent = mode === "practice" ? "快速刷题模式" : "模拟考试模式";
+    $("#mode-note-copy").textContent = mode === "practice"
+      ? "选择后即时判定；错题会自动进入“错题模式：只刷错题”；解析已升级为考试记忆版。"
+      : "模拟考试不显示答案、不自动评分；切换到快速刷题可即时判定并查看考试记忆版解析。";
 
     if (mode === "exam") {
+      wrongOnly = false;
       applyAnswers(examAnswers);
-      paper.questions.forEach((question) => {
-        document.querySelector(`#question-${question.number}`).hidden = false;
-      });
+      paper.questions.forEach((question) => { $(`#question-${question.number}`).hidden = false; });
       grid.querySelectorAll("a").forEach((link) => { link.hidden = false; });
       timer.textContent = formatTime(examElapsed);
       lockForCurrentMode();
@@ -676,9 +784,7 @@
     practice.answers = collectAnswers();
     savePractice();
     const card = event.target.closest(".question-card");
-    if (card) {
-      card.classList.remove("practice-correct-state", "practice-wrong-state");
-    }
+    if (card) card.classList.remove("practice-correct-state", "practice-wrong-state");
   });
 
   form.addEventListener("change", (event) => {
@@ -690,11 +796,8 @@
     practice.answers = collectAnswers();
     const card = event.target.closest(".question-card");
     const question = paper.questions.find((item) => item.number === Number(card?.dataset.question));
-    if (question && ["单选题", "判断题"].includes(question.type)) {
-      judgeQuestion(question);
-    } else {
-      savePractice();
-    }
+    if (question && ["单选题", "判断题"].includes(question.type)) judgeQuestion(question);
+    else savePractice();
   });
 
   document.querySelectorAll(".mark-button").forEach((button) => {
@@ -732,7 +835,7 @@
       if (!question) return;
       const correct = gradeButton.dataset.grade === "correct";
       recordPracticeResult(question, correct);
-      const card = document.querySelector(`#question-${question.number}`);
+      const card = $(`#question-${question.number}`);
       card.classList.toggle("practice-correct-state", correct);
       card.classList.toggle("practice-wrong-state", !correct);
       showReference(question, correct ? "已标记为会做" : "已加入错题记录", correct ? "correct" : "wrong");
@@ -743,16 +846,13 @@
     }
     if (event.target.closest("#return-all-questions")) {
       wrongOnly = false;
-      document.querySelector("#wrong-only-button").classList.remove("active");
       updatePracticeView();
     }
   });
 
-  document.querySelector("#submit-button").addEventListener("click", () => {
+  $("#submit-button").addEventListener("click", () => {
     const progress = examProgress();
-    const message = progress.unanswered
-      ? `还有 ${progress.unanswered} 题未作答，仍要交卷吗？`
-      : "确认交卷吗？交卷后答题框将锁定。";
+    const message = progress.unanswered ? `还有 ${progress.unanswered} 题未作答，仍要交卷吗？` : "确认交卷吗？交卷后答题框将锁定。";
     if (!confirm(message)) return;
     submitted = true;
     lockForCurrentMode();
@@ -760,7 +860,7 @@
     showSummary();
   });
 
-  document.querySelector("#reset-button").addEventListener("click", () => {
+  $("#reset-button").addEventListener("click", () => {
     if (!confirm("确认清空本试卷的模拟考试答案和计时吗？刷题错题记录不会受影响。")) return;
     try { localStorage.removeItem(examStorageKey); } catch (error) { /* no-op */ }
     examAnswers = {};
@@ -773,31 +873,28 @@
     storageStatus.textContent = "已清空模拟考试记录，重新开始作答。";
   });
 
-  document.querySelector("#reset-practice-button")?.addEventListener("click", () => {
+  $("#reset-practice-button")?.addEventListener("click", () => {
     if (!confirm("确认重置本轮刷题答案、首次结果和计时吗？历史错题记录会保留。")) return;
     const history = practice.history;
     practice = emptyPracticeState();
     practice.history = history;
     applyAnswers({});
-    restorePracticeFeedback();
     timer.textContent = formatTime(0);
     updatePracticeView();
     savePractice();
   });
 
-  document.querySelector("#clear-wrong-button")?.addEventListener("click", () => {
+  $("#clear-wrong-button")?.addEventListener("click", () => {
     if (!confirm("确认清空本试卷的全部历史错题记录吗？本轮作答统计会保留。")) return;
     practice.history = {};
     wrongOnly = false;
-    document.querySelector("#wrong-only-button").classList.remove("active");
     updatePracticeView();
     savePractice();
   });
 
-  document.querySelector("#wrong-only-button")?.addEventListener("click", () => {
+  $("#wrong-only-button")?.addEventListener("click", () => {
     if (!wrongOnly && activeWrongCount() === 0) return;
     wrongOnly = !wrongOnly;
-    document.querySelector("#wrong-only-button").classList.toggle("active", wrongOnly);
     if (wrongOnly) {
       paper.questions.forEach((question) => {
         const record = practice.history[question.number];
@@ -813,18 +910,16 @@
     savePractice();
   });
 
-  document.querySelector("#export-button").addEventListener("click", exportRecord);
-  document.querySelector("#import-input").addEventListener("change", (event) => {
+  $("#export-button").addEventListener("click", exportRecord);
+  $("#import-input").addEventListener("change", (event) => {
     const [file] = event.target.files;
     if (file) importRecord(file);
     event.target.value = "";
   });
-  document.querySelector("#print-button").addEventListener("click", () => window.print());
-  document.querySelector("#close-summary").addEventListener("click", () => {
-    document.querySelector("#summary-modal").hidden = true;
-  });
-  document.querySelector("#mobile-nav-button").addEventListener("click", () => sidebar.classList.add("open"));
-  document.querySelector("#close-nav").addEventListener("click", () => sidebar.classList.remove("open"));
+  $("#print-button").addEventListener("click", () => window.print());
+  $("#close-summary").addEventListener("click", () => { $("#summary-modal").hidden = true; });
+  $("#mobile-nav-button").addEventListener("click", () => sidebar.classList.add("open"));
+  $("#close-nav").addEventListener("click", () => sidebar.classList.remove("open"));
   grid.addEventListener("click", (event) => {
     const link = event.target.closest("[data-nav]");
     if (mode === "practice" && link) {
