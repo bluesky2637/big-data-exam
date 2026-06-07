@@ -177,6 +177,10 @@
   color: #25342d;
 }
 
+.challenge-explain {
+  white-space: pre-line;
+}
+
 .challenge-source {
   font-size: .82rem;
 }

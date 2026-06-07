@@ -229,8 +229,8 @@
   }
 
   function explain(question) {
-    const raw = explanationRules(question);
-    return raw.replace(/\s+/g, ' ').trim();
+    const raw = question.reference?.explanation || '这道题暂未提供解析。';
+    return raw.trim();
   }
 
   function renderControl(question) {
@@ -287,8 +287,8 @@
         ${points}
         <p class="reference-explanation"><strong>解析：</strong>${escapeHtml(explain(question))}</p>
         <footer>
-          <span>看懂版解析</span>
-          <span class="basis-badge">不用翻书</span>
+          <span>${escapeHtml(question.reference.source || '教材出处未标注')}</span>
+          <span class="basis-badge">${escapeHtml(question.reference.basis || '依据未标注')}</span>
         </footer>
       </section>
       ${selfGrade}`;
@@ -642,8 +642,8 @@
     document.querySelectorAll('.practice-action').forEach((button) => { button.hidden = mode !== 'practice'; });
     $('#mode-note-title').textContent = mode === 'practice' ? '快速刷题模式' : '模拟考试模式';
     $('#mode-note-copy').textContent = mode === 'practice'
-      ? '选择后即时判定；错题会自动进入错题模式；解析已改成看得懂版，不需要再翻书找原因。'
-      : '模拟考试不显示答案、不自动评分；切换到快速刷题可即时判定并查看看懂版解析。';
+      ? '选择后即时判定；错题会自动进入错题模式；每题显示专属解析、教材出处和依据类型。'
+      : '模拟考试不显示答案、不自动评分；切换到快速刷题可即时判定并查看题目专属解析。';
 
     if (mode === 'exam') {
       wrongOnly = false;

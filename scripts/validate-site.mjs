@@ -81,6 +81,14 @@ assert.deepEqual(
   '五套闯关题库题数不匹配',
 );
 
+const paper09 = papers.find((paper) => paper.id === 'paper-09');
+assert.match(paper09.questions[0].reference.explanation, /查询分析计算/);
+assert.match(paper09.questions[0].reference.explanation, /Hive、Impala、Presto/);
+assert.match(paper09.questions[8].reference.explanation, /时间戳/);
+assert.equal(paper09.questions[42].reference.answer[0], 'A', '冲突文本不得覆盖第43题答案');
+assert.equal(paper09.questions[42].reference.explanation, '正确内容为：任务重试。', '冲突文本不得覆盖第43题解析');
+assert.equal(paper09.questions[200].reference.answer[0], 'A', '争议文本不得覆盖第201题答案');
+
 const indexHtml = read('index.html');
 assert.equal((indexHtml.match(/class="card-link challenge-link"/g) || []).length, 5, '首页必须静态包含5个闯关入口');
 
@@ -91,6 +99,8 @@ assert(manifest.icons.some((icon) => icon.sizes === '512x512' && icon.type === '
 const challengeJs = read('assets/challenge.js');
 assert(!/explanationRules|searchText|const rules\s*=/.test(challengeJs), '闯关解析不得使用关键词猜测规则');
 assert(/reference\.explanation/.test(challengeJs), '闯关解析必须使用题目reference.explanation');
+const examJs = read('assets/exam.js');
+assert(/const raw = question\.reference\?\.explanation/.test(examJs), '快速刷题解析必须使用题目reference.explanation');
 
 for (const relativePath of [...htmlFiles, ...paperFiles]) {
   const html = read(relativePath);

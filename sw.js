@@ -1,4 +1,4 @@
-const CACHE_NAME = 'big-data-exam-v2';
+const CACHE_NAME = 'big-data-exam-v3';
 const PRECACHE = [
   './',
   './index.html',

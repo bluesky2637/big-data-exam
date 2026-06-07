@@ -1077,6 +1077,7 @@ a {
 .reference-explanation {
   margin: 0;
   color: #465149;
+  white-space: pre-line;
 }
 
 .feedback-panel footer {
