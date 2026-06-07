@@ -46,6 +46,38 @@ a {
   color: inherit;
 }
 
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: 10px 14px;
+  color: var(--paper);
+  background: var(--ink);
+  transform: translateY(-160%);
+  transition: transform 120ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
 .grain {
   position: fixed;
   inset: 0;
@@ -335,6 +367,15 @@ a {
 .card-link:hover {
   transform: translate(3px, 3px);
   box-shadow: 2px 2px 0 var(--ink);
+}
+
+.card-link-group {
+  display: grid;
+  gap: 10px;
+}
+
+.challenge-link {
+  background: var(--green);
 }
 
 .empty-state {
@@ -1235,6 +1276,18 @@ a {
   line-height: 1;
 }
 
+.site-dialog-card p {
+  color: var(--muted);
+}
+
+.site-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 28px;
+}
+
 .summary-numbers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1295,6 +1348,10 @@ a {
   }
 
   .card-link {
+    grid-column: 2 / -1;
+  }
+
+  .card-link-group {
     grid-column: 2 / -1;
   }
 
@@ -1368,6 +1425,10 @@ a {
   }
 
   .card-link {
+    grid-column: 2;
+  }
+
+  .card-link-group {
     grid-column: 2;
   }
 

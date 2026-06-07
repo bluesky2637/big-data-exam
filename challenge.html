@@ -3,231 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#164f3a">
+  <meta name="description" content="大数据题库20题分组闯关，支持客观题判定、主观题自评和错题重做。">
   <title>20题闯关模式 | 大数据题库</title>
-  <style>
-    :root{--ink:#17201c;--muted:#657069;--paper:#f5f1e8;--white:#fffdfa;--green:#164f3a;--orange:#e35c2f;--yellow:#edc65b;--line:rgba(23,32,28,.16)}
-    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Microsoft YaHei",Arial,sans-serif;line-height:1.7}.top{position:sticky;top:0;z-index:10;display:flex;gap:12px;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(23,32,28,.96);color:var(--paper)}.top a{color:#dbe5de;text-decoration:none}.top strong{color:var(--yellow)}main{max-width:980px;margin:auto;padding:22px 14px 80px}.panel{margin:0 0 18px;padding:18px;background:var(--white);border:1px solid var(--line);box-shadow:6px 6px 0 var(--yellow)}.panel h1{margin:0 0 8px;font-size:1.35rem}.hint{margin:0;color:var(--muted)}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}.btn{padding:10px 15px;border:1px solid var(--ink);background:var(--white);color:var(--ink);font-weight:800;cursor:pointer}.btn.primary{background:var(--green);color:var(--paper);border-color:var(--green)}.btn.danger{background:var(--orange);color:white;border-color:var(--orange)}.btn:disabled{opacity:.45;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin:16px 0;background:var(--line);border:1px solid var(--line)}.stats div{padding:12px;background:var(--ink);color:var(--paper)}.stats strong{display:block;color:var(--yellow);font-size:1.3rem}.card{margin:16px 0;padding:18px;background:var(--white);border:1px solid var(--line)}.card.correct{border-left:6px solid #2f8a55}.card.wrong{border-left:6px solid var(--orange)}.qhead{display:flex;gap:10px;align-items:center;margin-bottom:10px;border-bottom:1px solid var(--line);padding-bottom:10px}.qno{color:var(--orange);font-size:1.35rem;font-weight:900}.type{color:var(--green);font-weight:900}.stem{font-weight:700}.options{display:grid;gap:8px;margin-top:12px}.opt{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);background:#fff}.opt input{margin-top:6px}.opt.right{border-color:#2f8a55;background:#eef9f0}.opt.bad{border-color:var(--orange);background:#fff0e8}.answer{margin-top:14px;padding:12px;background:#f7f0d8;border-left:4px solid var(--yellow)}.answer b{color:var(--green)}.explain{margin-top:10px;color:#25342d}.blank{width:100%;margin-top:10px;padding:10px;border:1px solid var(--line)}.pass{padding:24px;text-align:center;background:#ecf7ef;border:1px solid #acd8b7}.pass h2{margin:0 0 8px;color:var(--green)}.hidden{display:none!important}@media(max-width:640px){.top{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:repeat(2,1fr)}.toolbar .btn{flex:1 1 100%}.card{padding:14px}}
-  </style>
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/challenge.css">
 </head>
-<body>
-  <header class="top"><a href="index.html">← 返回题库首页</a><strong>20题闯关模式</strong></header>
-  <main>
-    <section class="panel">
+<body class="challenge-page">
+  <a class="skip-link" href="#challenge-main">跳到闯关题目</a>
+  <header class="challenge-top">
+    <a href="index.html">← 返回题库首页</a>
+    <strong>20题闯关模式</strong>
+  </header>
+  <main class="challenge-main" id="challenge-main">
+    <section class="challenge-panel">
       <h1 id="title">正在加载题库...</h1>
-      <p class="hint" id="modeHint">流程：先背本组20题答案和解析 → 开始做题 → 错题单独重做 → 全部通过后进入下一组。</p>
-      <div class="stats">
+      <p class="challenge-hint" id="modeHint">先复习本组答案，再作答并重做尚未掌握的题目。</p>
+      <div class="challenge-stats" aria-label="闯关进度">
         <div><strong id="groupNo">--</strong><span>当前组</span></div>
         <div><strong id="rangeText">--</strong><span>题号范围</span></div>
         <div><strong id="phaseText">--</strong><span>当前状态</span></div>
         <div><strong id="wrongCount">0</strong><span>待重做错题</span></div>
       </div>
-      <div class="toolbar">
-        <button class="btn primary" id="startBtn">开始做这20题</button>
-        <button class="btn primary hidden" id="submitBtn">提交本组</button>
-        <button class="btn primary hidden" id="submitWrongBtn">提交错题</button>
-        <button class="btn primary hidden" id="nextBtn">进入下一组20题</button>
-        <button class="btn" id="backStudyBtn">返回背答案</button>
-        <button class="btn danger" id="resetBtn">重置闯关进度</button>
+      <div class="challenge-toolbar">
+        <button class="button button-primary" id="startBtn" type="button">开始做这20题</button>
+        <button class="button button-primary" id="submitBtn" type="button" hidden>提交本组</button>
+        <button class="button button-primary" id="submitWrongBtn" type="button" hidden>提交错题</button>
+        <button class="button button-primary" id="nextBtn" type="button" hidden>进入下一组20题</button>
+        <button class="button button-quiet" id="backStudyBtn" type="button">返回背答案</button>
+        <button class="button button-danger" id="resetBtn" type="button">重置闯关进度</button>
       </div>
     </section>
-    <section id="passPanel" class="pass hidden"><h2>本组已通过</h2><p>这20题已经全部做对，可以进入下一组。</p></section>
-    <section id="questions"></section>
+    <section id="passPanel" class="challenge-pass" hidden>
+      <h2 id="passTitle">本组已通过</h2>
+      <p id="passCopy">这一组题已经全部做对，可以进入下一组。</p>
+    </section>
+    <section id="questions" aria-live="off"></section>
   </main>
-<script>
-(() => {
-  const paperPath = new URLSearchParams(location.search).get('paper') || 'papers/paper-09.html';
-  const groupSize = 20;
-  let paper = null;
-  let groupIndex = 0;
-  let phase = 'study';
-  let wrongNumbers = [];
-
-  const $ = (s, r=document) => r.querySelector(s);
-  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
-  const esc = (v='') => { const n=document.createElement('span'); n.textContent=v||''; return n.innerHTML; };
-  const text = (html='') => { const n=document.createElement('div'); n.innerHTML=html||''; return n.textContent.replace(/\s+/g,' ').trim(); };
-  const key = () => `challenge20:${paper.id}:v1`;
-
-  function loadState(){
-    try{ const s=JSON.parse(localStorage.getItem(key())||'null'); if(s){ groupIndex=s.groupIndex||0; } }catch(e){}
-  }
-  function saveState(){ try{ localStorage.setItem(key(), JSON.stringify({groupIndex})); }catch(e){} }
-
-  function labels(q){ return q.reference?.answer || []; }
-  function answerLabel(q){
-    const a = labels(q);
-    if(q.type === '填空题') return a.map((v,i)=>`第${i+1}空：${v}`).join('；');
-    return a.join('、');
-  }
-  function optText(o){ return text(o.html || o.text || ''); }
-  function correctOptionText(q){
-    const set = new Set(labels(q));
-    const arr = (q.options||[]).filter(o=>set.has(o.label)).map(o=>`${o.label}. ${optText(o)}`);
-    return arr.length ? arr.join('；') : answerLabel(q);
-  }
-  function searchText(q){ return [text(q.stem_html), ...(q.options||[]).map(optText), correctOptionText(q), q.reference?.explanation||''].join(' '); }
-
-  function explain(q){
-    const s = searchText(q);
-    const ans = answerLabel(q);
-    const right = correctOptionText(q);
-    const tf = q.type === '判断题' ? (labels(q)[0] === 'A' ? '对' : '错') : '';
-    const rules = [
-      [/NameNode.*单点故障|单点故障.*NameNode/, `这句话是${tf}的。NameNode 不存真正的数据块，它保存文件目录、文件名、权限、以及每个数据块在哪些 DataNode 上。早期 HDFS 中 NameNode 一旦出问题，客户端就不知道文件去哪里找，所以整个文件系统会受影响。记住：DataNode 坏一台还有副本，NameNode 出问题是全局元数据出问题。`],
-      [/大量小文件|小文件/, `HDFS 适合大文件，不适合大量小文件。每个小文件都要让 NameNode 记录元数据，小文件太多会把 NameNode 的内存和管理压力拉高。记住：HDFS 怕的不是文件大，而是小文件数量太多。`],
-      [/HDFS.*128MB|128MB|默认大小|数据块/, `HDFS 会把文件切成块保存，默认块大小常考 128MB。块大一点可以减少寻址次数，更适合大文件顺序读写。64MB 常作为旧版本或干扰项出现。`],
-      [/SecondaryNameNode/, `SecondaryNameNode 不是 NameNode 的热备机。它主要帮助 NameNode 合并 fsimage 和 edits 编辑日志，减轻 NameNode 重启时加载日志的压力。看到它就记“合并日志”，不要记成“替代 NameNode”。`],
-      [/HBase.*时间戳|时间戳.*HBase|数据版本/, `HBase 中同一个单元格可以保存多个版本，版本靠时间戳区分。行键和列定位到单元格，时间戳再定位到某个时间版本。记住：HBase 多版本 = 时间戳。`],
-      [/HBase.*行键|行键.*HBase|唯一标识一行/, `HBase 里一行数据靠 RowKey 唯一标识。RowKey 就像这一行的身份证号，查数据时先通过它定位行。列族、列限定符、时间戳都不是用来唯一标识一行的。`],
-      [/HBase.*HDFS|构建在.*HDFS/, `HBase 是分布式数据库，但底层通常依赖 HDFS 保存数据文件。HDFS 管分布式存储和副本，HBase 在上面提供按行键读写的能力。`],
-      [/Shuffle/, `Shuffle 发生在 Map 和 Reduce 之间。Map 先输出中间键值对，Reduce 需要把相同 key 的数据汇总，Shuffle 就负责分组、排序和传输。记住：Shuffle 是 Map 到 Reduce 的中转站。`],
-      [/MapReduce.*迭代|不适合迭代|适合迭代/, `MapReduce 不适合迭代计算，因为每一轮中间结果经常要写磁盘，下一轮又要读回来，磁盘 I/O 开销大。机器学习这类反复迭代任务更适合 Spark。`],
-      [/计算向数据靠拢|数据向计算靠拢/, `大数据里数据太大，移动数据成本高，所以 MapReduce 强调“计算向数据靠拢”：把计算任务发到数据附近执行，而不是把海量数据搬来搬去。`],
-      [/RDD/, `RDD 是 Spark 的核心数据抽象，可以理解为分布在多台机器上的数据集合。它只读、可分区、能通过血缘关系容错，所以 Spark 能比 MapReduce 更适合迭代计算。`],
-      [/Spark Core/, `Spark Core 是 Spark 的核心底座，负责基本任务调度、内存计算、RDD 等核心能力。Spark SQL、Streaming、MLlib、GraphX 都建立在这个生态上。`],
-      [/Flink/, `Flink 重点记“真正流处理”和“低延迟”。它不是只支持流，也能处理批，但考试里常用它和 Spark Streaming、Storm 对比，强调毫秒级、事件时间等流处理能力。`],
-      [/数据仓库.*面向主题|面向主题|集成性|相对稳定|历史变化/, `数据仓库不是用来频繁处理交易的，而是面向分析和决策。四个核心特点：面向主题、集成性、相对稳定、反映历史变化。看到“事务处理、实时频繁更新”通常不是数据仓库的特点。`],
-      [/数据湖|湖仓一体/, `数据湖强调先把原始数据存起来，结构化、半结构化、非结构化数据都能放。湖仓一体则是在数据湖和数据仓库之间打通数据和元数据，让灵活存储和高效分析结合起来。`],
-      [/MongoDB/, `MongoDB 是文档型 NoSQL 数据库，常见数据形式类似 JSON/BSON 文档。它不是关系数据库，所以遇到“关系数据库产品”这类题，MongoDB 通常是排除项。`],
-      [/Redis/, `Redis 是键值数据库，常用于缓存、会话等场景。它不是关系数据库，也不是文档数据库。记住：Redis = key-value。`],
-      [/Neo4j|图数据库|社交网络关系/, `Neo4j 是图数据库，适合处理点和边组成的关系数据，比如社交关系、路径分析、关系网络。看到“关系链、社交网络、图谱”，优先想到图数据库。`],
-      [/云计算|IaaS|PaaS|SaaS|云数据库/, `云计算常考三种服务模式：IaaS 提供基础设施，PaaS 提供平台，SaaS 提供软件服务。云数据库的优势是按需付费、弹性扩展、高可用，用户通常不用自己维护硬件。`],
-      [/折线图|柱状图|饼图|散点图|漏斗图|桑基图|热力图|词云图|雷达图|树图|日历图/, `可视化题要按用途选图：趋势用折线图，类别比较用柱状图，部分和整体用饼图，两个变量相关性用散点图，转化流程用漏斗图，流向关系用桑基图，关键词频率用词云图。`],
-      [/聚类|K-Means|DBSCAN|无监督/, `聚类属于无监督学习，不需要提前标注类别，目的是把相似对象分到一组。用户分群、客户画像常用聚类；预测具体数值是回归，预测类别是分类。`],
-      [/回归|线性回归|房价|销售额/, `回归分析主要预测连续数值，比如房价、销售额、温度。只要答案是一个具体数值，而不是类别标签，就优先想到回归。`],
-      [/关联规则|Apriori|FP-Growth|支持度|置信度/, `关联规则用于发现“买了 X 的人也常买 Y”这类关系。支持度看组合出现得多不多，置信度看出现 X 时同时出现 Y 的比例。FP-Growth 的优势是不需要像 Apriori 那样生成大量候选集。`],
-      [/协同过滤|UserCF|ItemCF|基于用户|基于物品/, `协同过滤常考两句话：人以群分是基于用户 UserCF，物以类聚是基于物品 ItemCF。ItemCF 在业界应用更多，因为物品相似关系通常比用户兴趣更稳定。`],
-      [/数据清洗|数据集成|数据转换|数据规约|标准化|离散化/, `数据预处理常见步骤包括清洗、集成、转换、规约。清洗处理脏数据和缺失异常；集成合并多个来源；转换包括标准化；规约是减少数据规模，离散化也常在这里考。`],
-      [/Volume|Velocity|Variety|Value|大数据/, `大数据 4V 要分清：Volume 是数据量大，Velocity 是速度快，Variety 是类型多样，Value 是价值密度低但总价值高。题目出现英文 V 词，直接按含义对应。`]
-    ];
-    const hit = rules.find(([re]) => re.test(s));
-    if(hit) return hit[1];
-    if(q.type === '判断题') return `这句话是${tf}的。判断题不要只看关键词，要看它有没有把概念说反、说绝对或混到别的技术上。本题答案为${ans}，说明题干说法和教材核心定义${ans==='A'?'一致':'不一致'}。`;
-    if(q.type === '多选题') return `这题是多选，正确答案是 ${ans}，对应选项为：${right}。多选题要逐项判断，属于同一考点且表述正确的都要选；把别的概念混进来、说法过于绝对或方向相反的不要选。`;
-    if(q.type === '填空题') return `这题要把关键词写准：${ans}。背的时候不要只背答案，要把题干中的描述和这个词绑定起来。`;
-    return `这题正确答案是 ${ans}，对应选项为：${right}。做题时抓题干关键词，再判断哪个选项和概念定义最匹配。`;
-  }
-
-  function groupQuestions(){
-    const start = groupIndex * groupSize;
-    return paper.questions.slice(start, start + groupSize);
-  }
-  function activeQuestions(){
-    if(phase === 'wrong') return paper.questions.filter(q => wrongNumbers.includes(q.number));
-    return groupQuestions();
-  }
-  function isAnswered(q){
-    if(q.type === '多选题') return $$(`input[name="q-${q.number}"]:checked`).length > 0;
-    if(q.type === '填空题') return $$(`input[data-q="${q.number}"]`).every(i => i.value.trim());
-    return Boolean($(`input[name="q-${q.number}"]:checked`));
-  }
-  function getAnswer(q){
-    if(q.type === '多选题') return $$(`input[name="q-${q.number}"]:checked`).map(i=>i.value);
-    if(q.type === '填空题') return $$(`input[data-q="${q.number}"]`).map(i=>i.value.trim());
-    return $(`input[name="q-${q.number}"]:checked`)?.value || '';
-  }
-  function norm(v){ return String(v||'').normalize('NFKC').trim().toLowerCase().replace(/\s+/g,' '); }
-  function isCorrect(q){
-    const ref = labels(q);
-    const val = getAnswer(q);
-    if(q.type === '多选题') return val.length === ref.length && val.every(v=>ref.includes(v));
-    if(q.type === '填空题') return ref.every((r,i)=>norm(r) === norm(val[i]));
-    return val === ref[0];
-  }
-
-  function renderOptions(q, reveal=false){
-    if(q.type === '填空题'){
-      const count = Math.max(q.blank_count || labels(q).length || 1, 1);
-      return Array.from({length:count},(_,i)=>`<input class="blank" data-q="${q.number}" placeholder="第${i+1}空">`).join('');
-    }
-    const type = q.type === '多选题' ? 'checkbox' : 'radio';
-    const set = new Set(labels(q));
-    return `<div class="options">${(q.options||[]).map(o=>`
-      <label class="opt ${reveal && set.has(o.label) ? 'right' : ''}" data-opt="${o.label}">
-        <input type="${type}" name="q-${q.number}" value="${o.label}" ${reveal?'disabled':''}>
-        <b>${o.label}</b><span>${o.html || esc(o.text)}</span>
-      </label>`).join('')}</div>`;
-  }
-
-  function render(){
-    const qs = activeQuestions();
-    const start = groupIndex * groupSize + 1;
-    const end = Math.min(start + groupSize - 1, paper.questions.length);
-    $('#groupNo').textContent = `${groupIndex + 1}/${Math.ceil(paper.questions.length/groupSize)}`;
-    $('#rangeText').textContent = `${start}-${end}`;
-    $('#phaseText').textContent = phase === 'study' ? '先背答案' : phase === 'test' ? '正在做题' : phase === 'wrong' ? '错题重做' : '本组通过';
-    $('#wrongCount').textContent = wrongNumbers.length;
-    $('#startBtn').classList.toggle('hidden', phase !== 'study');
-    $('#submitBtn').classList.toggle('hidden', phase !== 'test');
-    $('#submitWrongBtn').classList.toggle('hidden', phase !== 'wrong');
-    $('#nextBtn').classList.toggle('hidden', phase !== 'pass');
-    $('#backStudyBtn').classList.toggle('hidden', phase === 'study');
-    $('#passPanel').classList.toggle('hidden', phase !== 'pass');
-    $('#modeHint').textContent = phase === 'study'
-      ? '先把这20道题的答案和解析看一遍，背完后点“开始做这20题”。'
-      : phase === 'test'
-        ? '现在隐藏答案，做完这20题后提交。系统会筛出错题。'
-        : phase === 'wrong'
-          ? '这里只剩刚才做错的题。错题全部做对以后，才能进入下一组。'
-          : '这一组已经通过，可以进入下一组20题。';
-    $('#questions').innerHTML = qs.map(q => {
-      const reveal = phase === 'study';
-      return `<article class="card" id="q-${q.number}">
-        <div class="qhead"><span class="qno">${q.number}</span><span class="type">${q.type}</span><span>${q.score || 1} 分</span></div>
-        <div class="stem">${q.stem_html}</div>
-        ${renderOptions(q, reveal)}
-        ${reveal ? `<div class="answer"><b>答案：</b>${esc(answerLabel(q))}<div class="explain"><b>解析：</b>${esc(explain(q))}</div></div>` : ''}
-      </article>`;
-    }).join('');
-  }
-
-  function submitCurrent(){
-    const qs = activeQuestions();
-    const missing = qs.filter(q=>!isAnswered(q));
-    if(missing.length){ alert(`还有 ${missing.length} 道题没有做完。`); return; }
-    const wrong = qs.filter(q=>!isCorrect(q)).map(q=>q.number);
-    qs.forEach(q=>{
-      const card = $(`#q-${q.number}`);
-      if(!card) return;
-      const ok = !wrong.includes(q.number);
-      card.classList.toggle('correct', ok);
-      card.classList.toggle('wrong', !ok);
-    });
-    if(wrong.length){
-      wrongNumbers = wrong;
-      phase = 'wrong';
-      alert(`这组还有 ${wrong.length} 道错题，接下来只重做错题。`);
-      render();
-    }else{
-      wrongNumbers = [];
-      phase = 'pass';
-      render();
-      scrollTo({top:0,behavior:'smooth'});
-    }
-  }
-
-  $('#startBtn').addEventListener('click', ()=>{ phase='test'; wrongNumbers=[]; render(); scrollTo({top:0,behavior:'smooth'}); });
-  $('#submitBtn').addEventListener('click', submitCurrent);
-  $('#submitWrongBtn').addEventListener('click', submitCurrent);
-  $('#nextBtn').addEventListener('click', ()=>{
-    if((groupIndex+1)*groupSize >= paper.questions.length){ alert('已经是最后一组了。'); return; }
-    groupIndex += 1; saveState(); phase='study'; wrongNumbers=[]; render(); scrollTo({top:0,behavior:'smooth'});
-  });
-  $('#backStudyBtn').addEventListener('click', ()=>{ phase='study'; wrongNumbers=[]; render(); scrollTo({top:0,behavior:'smooth'}); });
-  $('#resetBtn').addEventListener('click', ()=>{ if(confirm('确认从第1组重新开始吗？')){ groupIndex=0; saveState(); phase='study'; wrongNumbers=[]; render(); } });
-
-  fetch(paperPath).then(r=>r.text()).then(html=>{
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    paper = JSON.parse(doc.querySelector('#exam-data').textContent);
-    document.title = `20题闯关模式 | ${paper.title}`;
-    $('#title').textContent = paper.title;
-    loadState();
-    render();
-  }).catch(err=>{
-    $('#title').textContent = '题库加载失败';
-    $('#modeHint').textContent = err.message;
-  });
-})();
-</script>
+  <script src="assets/practice-utils.js"></script>
+  <script src="assets/ui.js"></script>
+  <script src="assets/site.js"></script>
+  <script src="assets/challenge.js"></script>
 </body>
 </html>

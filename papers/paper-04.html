@@ -1,13 +1,19 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#164f3a">
+  <meta name="description" content="在线与离线模拟考试页面，答题记录仅保存在当前浏览器。">
   <title>软件测试边界值案例 | 离线模拟考试</title>
+  <link rel="icon" href="../assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../manifest.webmanifest">
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body class="exam-page">
+  <a class="skip-link" href="#exam-main">跳到试卷正文</a>
   <div class="grain" aria-hidden="true"></div>
   <header class="exam-topbar">
     <a class="back-link" href="../index.html">← 返回试卷总览</a>
@@ -18,7 +24,7 @@
     <button class="button button-quiet mobile-nav-button" id="mobile-nav-button" type="button">题号</button>
   </header>
 
-  <main class="exam-shell">
+  <main class="exam-shell" id="exam-main">
     <aside class="question-sidebar" id="question-sidebar">
       <div class="sidebar-heading">
         <span class="eyebrow">答题卡</span>
@@ -97,6 +103,9 @@
   </div>
 
   <script id="exam-data" type="application/json">{"id":"paper-04","title":"软件测试边界值案例","short_title":"边界值测试案例","date":"2026-05-21","course":"软件测试中的完美边界值分析","majors":["软件工程","软件测试"],"category":"软件工程","question_count":1,"total_score":7.0,"type_counts":{"案例分析":1},"source_file":"考试系统 (2026_5_21 19：16：59).html","source_sha256":"613b9c586bc934f89f954c0724077510623e5a770b33fe5718b5c267cf024c77","has_answers":false,"questions":[{"number":1,"source_number":1,"type":"案例分析","score":7.0,"stem_html":"\u003cp>\u003cp>教务管理系统成绩录入模块，仅支持录入整数形式课程考核成绩，系统设定合法成绩取值范围为0 分～100 分，录入数据超出该范围时系统自动判定数据非法并拒绝保存，范围内数据正常完成录入存档，请完成完美边界值测试用例设计。\u003cp>预期结果参考选项：A. 成绩合规，成功完成数据录入保存；B.  成绩超出合法范围，系统拒绝录入并提示错误；C. 成绩格式错误，系统提示请输入整数\u003cp>所选边界值与预期结果对应正确得1分，对应不正确不得分。\u003c/p>\u003c/p>\u003c/p>\u003c/p>","options":[],"blank_count":0,"missing_images":0}]}</script>
+  <script src="../assets/practice-utils.js"></script>
+  <script src="../assets/ui.js"></script>
+  <script src="../assets/site.js"></script>
   <script src="../assets/exam.js"></script>
 </body>
 </html>

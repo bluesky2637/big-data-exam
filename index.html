@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#164f3a">
+  <meta name="description" content="11套考试试卷、665道题的在线与离线学习站，支持模拟考试、快速刷题和20题闯关。">
   <title>HTML 考试试卷整理</title>
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="home-page">
+  <a class="skip-link" href="#home-main">跳到试卷列表</a>
   <div class="grain" aria-hidden="true"></div>
   <header class="home-hero">
     <div class="hero-kicker">OFFLINE EXAM ARCHIVE / 2026</div>
     <div class="hero-grid">
       <div>
         <h1>11份试卷，<br><em>一张离线答题桌。</em></h1>
-        <p>从下载目录中的原始 HTML 整理而成。无需联网，双击即可练习，所有答案只保存在当前电脑。</p>
+        <p>从原始 HTML 试卷整理而成。支持在线访问，也可安装后离线练习；答题记录只保存在当前浏览器。</p>
       </div>
       <div class="hero-total">
         <strong>665</strong>
@@ -25,7 +31,7 @@
     <div class="hero-rule"></div>
   </header>
 
-  <main class="home-main">
+  <main class="home-main" id="home-main">
     <section class="catalog-toolbar" aria-label="试卷筛选">
       <div class="filter-row">
         <button class="filter-chip active" type="button" data-filter="全部">全部</button>
@@ -102,7 +108,10 @@
           <span>题</span>
           <small>100 分</small>
         </div>
-        <a class="card-link" href="papers/paper-03.html" aria-label="开始作答：大数据小测">开始作答 <span>↗</span></a>
+        <div class="card-link-group">
+          <a class="card-link" href="papers/paper-03.html" aria-label="开始作答：大数据小测">开始作答 <span>↗</span></a>
+          <a class="card-link challenge-link" href="challenge.html?paper=papers%2Fpaper-03.html" aria-label="20题闯关：大数据小测">20题闯关 <span>↗</span></a>
+        </div>
       </article>
 
       <article class="paper-card" data-category="软件工程" data-search="软件测试边界值案例 软件测试中的完美边界值分析 软件工程、软件测试">
@@ -207,7 +216,10 @@
           <span>题</span>
           <small>110 分</small>
         </div>
-        <a class="card-link" href="papers/paper-08.html" aria-label="开始作答：大数据导论综合练习">开始作答 <span>↗</span></a>
+        <div class="card-link-group">
+          <a class="card-link" href="papers/paper-08.html" aria-label="开始作答：大数据导论综合练习">开始作答 <span>↗</span></a>
+          <a class="card-link challenge-link" href="challenge.html?paper=papers%2Fpaper-08.html" aria-label="20题闯关：大数据导论综合练习">20题闯关 <span>↗</span></a>
+        </div>
       </article>
 
       <article class="paper-card" data-category="大数据" data-search="大数据客观题题库 大数据采集、存储、处理、分析与可视化 大数据技术、数据科学">
@@ -228,7 +240,10 @@
           <span>题</span>
           <small>244 分</small>
         </div>
-        <a class="card-link" href="papers/paper-09.html" aria-label="开始作答：大数据客观题题库">开始作答 <span>↗</span></a>
+        <div class="card-link-group">
+          <a class="card-link" href="papers/paper-09.html" aria-label="开始作答：大数据客观题题库">开始作答 <span>↗</span></a>
+          <a class="card-link challenge-link" href="challenge.html?paper=papers%2Fpaper-09.html" aria-label="20题闯关：大数据客观题题库">20题闯关 <span>↗</span></a>
+        </div>
       </article>
 
       <article class="paper-card" data-category="大数据" data-search="大数据主观题题库 大数据基础、采集预处理、存储管理与数据分析 大数据技术、数据科学">
@@ -249,7 +264,10 @@
           <span>题</span>
           <small>175 分</small>
         </div>
-        <a class="card-link" href="papers/paper-10.html" aria-label="开始作答：大数据主观题题库">开始作答 <span>↗</span></a>
+        <div class="card-link-group">
+          <a class="card-link" href="papers/paper-10.html" aria-label="开始作答：大数据主观题题库">开始作答 <span>↗</span></a>
+          <a class="card-link challenge-link" href="challenge.html?paper=papers%2Fpaper-10.html" aria-label="20题闯关：大数据主观题题库">20题闯关 <span>↗</span></a>
+        </div>
       </article>
 
       <article class="paper-card" data-category="大数据" data-search="大数据6.7.8章测试 数据采集与预处理、数据存储与管理、数据处理与分析 大数据技术、数据科学">
@@ -270,7 +288,10 @@
           <span>题</span>
           <small>130 分</small>
         </div>
-        <a class="card-link" href="papers/paper-11.html" aria-label="开始作答：大数据6.7.8章测试">开始作答 <span>↗</span></a>
+        <div class="card-link-group">
+          <a class="card-link" href="papers/paper-11.html" aria-label="开始作答：大数据6.7.8章测试">开始作答 <span>↗</span></a>
+          <a class="card-link challenge-link" href="challenge.html?paper=papers%2Fpaper-11.html" aria-label="20题闯关：大数据6.7.8章测试">20题闯关 <span>↗</span></a>
+        </div>
       </article>
 
     </section>
@@ -285,14 +306,17 @@
       <div class="method-columns">
         <p>本合集按文件大小和哈希校验源文件，共保留 11 份试卷、665 道题。</p>
         <p>五套大数据试卷已依据林子雨《大数据导论》第2版加入快速刷题、即时判定和教材出处；模拟考试仍不显示分数。</p>
+        <p>本站不提供账号或云同步。禁止搜索收录只能降低被搜索到的概率，不等于访问密码保护；知道网址的人仍可打开。</p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <span>本地离线试卷库</span>
+    <span>在线与离线学习题库</span>
     <span>生成日期：2026-06-07</span>
   </footer>
+  <script src="assets/ui.js"></script>
+  <script src="assets/site.js"></script>
   <script src="assets/home.js"></script>
 </body>
 </html>

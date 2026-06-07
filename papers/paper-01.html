@@ -1,13 +1,19 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#164f3a">
+  <meta name="description" content="在线与离线模拟考试页面，答题记录仅保存在当前浏览器。">
   <title>网络配置与网络安全综合小测 | 离线模拟考试</title>
+  <link rel="icon" href="../assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../manifest.webmanifest">
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body class="exam-page">
+  <a class="skip-link" href="#exam-main">跳到试卷正文</a>
   <div class="grain" aria-hidden="true"></div>
   <header class="exam-topbar">
     <a class="back-link" href="../index.html">← 返回试卷总览</a>
@@ -18,7 +24,7 @@
     <button class="button button-quiet mobile-nav-button" id="mobile-nav-button" type="button">题号</button>
   </header>
 
-  <main class="exam-shell">
+  <main class="exam-shell" id="exam-main">
     <aside class="question-sidebar" id="question-sidebar">
       <div class="sidebar-heading">
         <span class="eyebrow">答题卡</span>
@@ -97,6 +103,9 @@
   </div>
 
   <script id="exam-data" type="application/json">{"id":"paper-01","title":"网络配置与网络安全综合小测","short_title":"网络综合小测","date":"2026-06-05","course":"计算机网络配置、NAT、RIP 与 HTTPS/CA","majors":["计算机网络技术","信息安全"],"category":"网络与安全","question_count":4,"total_score":20.0,"type_counts":{"单选题":1,"填空题":2,"判断题":1},"source_file":"整卷预览 (2026_6_5 14：48：57).html","source_sha256":"42ecff5277d1639905454d80d25343bba37cda356b5a16d7e079cb5e107fa4f7","has_answers":false,"questions":[{"number":1,"source_number":1,"type":"单选题","score":5.0,"stem_html":"访问 CA 证书申请页面的默认地址是?(        )","options":[{"label":"A","text":"http://IP/certsrv/"},{"label":"B","text":"https://IP/ca/"},{"label":"C","text":"http://IP/ca/"},{"label":"D","text":"https://IP/certsrv/"}],"blank_count":0,"missing_images":0},{"number":2,"source_number":2,"type":"填空题","score":5.0,"stem_html":"\u003cp>、下图为动态NAT配置实验的网络拓扑图。现需要在路由器Router-A上配置动态NAT，请补充相关指令。（每空1分）\u003c/p>\n\u003cp>\u003cfigure class=\"question-figure\">\u003cimg src=\"../assets/images/paper-01-q002-01.png\" alt=\"试题图片\">\u003c/figure>\u003c/p>\n\u003cp>Router-A(config)# interface fastethernet 0/0\u003c/p>\n\u003cp>Router-A(config-if)#                                                     （将fa 0/0端口定义为内部端口）\u003c/p>\n\u003cp>Router-A(config-if)#exit\u003c/p>\n\u003cp>Router-A(config)#interface fastethernet 0/1\u003c/p>\n\u003cp>Router-A(config-if)#                                                     \u003c/p>\n\u003cp>Router-A(config-if)#exit\u003c/p>\n\u003cp>Router-A(config)#ip nat pool jspi-nj                                                       netmask 255.255.255.0 \u003c/p>\n\u003cp>Router-A(config)#                                                     172.16.1.0 0.0.0.255 \u003c/p>\n\u003cp>Router-A(config)#                                                     jspi-nj  \u003c/p>\n\u003cp>Router-A(config)#end\u003c/p>\n\u003cp>Router-A#write memory\u003c/p>\n\u003cp>\u003cbr>\u003c/p>","options":[],"blank_count":5,"missing_images":0},{"number":3,"source_number":3,"type":"填空题","score":5.0,"stem_html":"\u003cp>请根据图 RIP路由配置拓扑图完成PC端配置\u003c/p>\n\u003cp> \u003cfigure class=\"question-figure\">\u003cimg src=\"../assets/images/paper-01-q003-01.png\" alt=\"试题图片\">\u003c/figure>\u003c/p>\n\u003cp>PC1:IP地址：                                 \u003c/p>\n\u003cp>子网掩码：                                      \u003c/p>\n\u003cp>默认网关：                                    \u003c/p>\n\u003cp>PC2:IP地址：                                   \u003c/p>\n\u003cp>子网掩码：                                      \u003c/p>\n\u003cp>默认网关：192.168.3.1\u003c/p>","options":[],"blank_count":5,"missing_images":0},{"number":4,"source_number":4,"type":"判断题","score":5.0,"stem_html":"HTTPS是HTTP+SSL的组合，端口为443。","options":[{"label":"A","text":"对"},{"label":"B","text":"错"}],"blank_count":0,"missing_images":0}]}</script>
+  <script src="../assets/practice-utils.js"></script>
+  <script src="../assets/ui.js"></script>
+  <script src="../assets/site.js"></script>
   <script src="../assets/exam.js"></script>
 </body>
 </html>

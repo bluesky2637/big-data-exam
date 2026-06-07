@@ -1,5 +1,6 @@
 (() => {
   const paper = JSON.parse(document.querySelector('#exam-data').textContent);
+  const practiceUtils = window.ExamPractice;
   const hasAnswers = Boolean(paper.has_answers);
   const questionsRoot = document.querySelector('#questions');
   const grid = document.querySelector('#question-grid');
@@ -62,7 +63,7 @@
   }
 
   function correctLabels(question) {
-    return question.reference?.answer || [];
+    return practiceUtils.correctLabels(question);
   }
 
   function answerLabel(question) {
@@ -536,28 +537,8 @@
     $('#summary-modal').hidden = false;
   }
 
-  function normalizeAnswer(value) {
-    return String(value || '').normalize('NFKC').trim().toLocaleLowerCase('zh-CN').replace(/\s+/g, ' ');
-  }
-
   function isPracticeCorrect(question, value) {
-    const reference = question.reference;
-    if (!reference) return false;
-    if (question.type === '单选题' || question.type === '判断题') return value === reference.answer[0];
-    if (question.type === '多选题') {
-      const selected = new Set(Array.isArray(value) ? value : []);
-      const expected = new Set(reference.answer);
-      return selected.size === expected.size && [...selected].every((item) => expected.has(item));
-    }
-    if (question.type === '填空题') {
-      if (!Array.isArray(value) || value.length !== question.blank_count) return false;
-      return value.every((entry, index) => {
-        const accepted = [reference.answer[index], ...(reference.accepted[index] || [])];
-        const normalized = normalizeAnswer(entry);
-        return accepted.some((candidate) => normalizeAnswer(candidate) === normalized);
-      });
-    }
-    return false;
+    return practiceUtils.isCorrect(question, value);
   }
 
   function showReference(question, verdictText = '参考答案', verdictClass = '') {
@@ -599,11 +580,11 @@
     }
   }
 
-  function judgeQuestion(question) {
+  async function judgeQuestion(question) {
     const answers = collectAnswers();
     const value = answers[question.number];
     if (!isAnswered(question, value)) {
-      alert(question.type === '填空题' ? '请填写全部空格后再确认。' : '请先选择答案。');
+      await ExamUI.message(question.type === '填空题' ? '请填写全部空格后再确认。' : '请先选择答案。');
       return;
     }
     practice.answers = answers;
@@ -697,7 +678,7 @@
 
   function importRecord(file) {
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = async () => {
       try {
         const saved = JSON.parse(reader.result);
         if (saved.paperId !== paper.id) throw new Error('试卷编号不匹配');
@@ -714,9 +695,9 @@
         writeStorage(examStorageKey, examSnapshot());
         writeStorage(practiceStorageKey, practiceSnapshot());
         switchMode(mode, { initial: true });
-        alert('学习记录已导入。');
+        await ExamUI.message('学习记录已导入。');
       } catch (error) {
-        alert(`无法导入：${error.message}`);
+        await ExamUI.message(`无法导入：${error.message}`, '导入失败');
       }
     };
     reader.readAsText(file, 'utf-8');
@@ -800,18 +781,18 @@
     }
   });
 
-  $('#submit-button').addEventListener('click', () => {
+  $('#submit-button').addEventListener('click', async () => {
     const progress = examProgress();
     const message = progress.unanswered ? `还有 ${progress.unanswered} 题未作答，仍要交卷吗？` : '确认交卷吗？交卷后答题框将锁定。';
-    if (!confirm(message)) return;
+    if (!await ExamUI.confirm(message, '确认交卷', '确认交卷')) return;
     submitted = true;
     lockForCurrentMode();
     saveExam();
     showSummary();
   });
 
-  $('#reset-button').addEventListener('click', () => {
-    if (!confirm('确认清空本试卷的模拟考试答案和计时吗？刷题错题记录不会受影响。')) return;
+  $('#reset-button').addEventListener('click', async () => {
+    if (!await ExamUI.confirm('确认清空本试卷的模拟考试答案和计时吗？刷题错题记录不会受影响。', '重新作答', '确认清空')) return;
     try { localStorage.removeItem(examStorageKey); } catch (error) { /* no-op */ }
     examAnswers = {};
     examElapsed = 0;
@@ -823,8 +804,8 @@
     storageStatus.textContent = '已清空模拟考试记录，重新开始作答。';
   });
 
-  $('#reset-practice-button')?.addEventListener('click', () => {
-    if (!confirm('确认重置本轮刷题答案、首次结果和计时吗？历史错题记录会保留。')) return;
+  $('#reset-practice-button')?.addEventListener('click', async () => {
+    if (!await ExamUI.confirm('确认重置本轮刷题答案、首次结果和计时吗？历史错题记录会保留。', '重置本轮刷题', '确认重置')) return;
     const history = practice.history;
     practice = emptyPracticeState();
     practice.history = history;
@@ -834,8 +815,8 @@
     savePractice();
   });
 
-  $('#clear-wrong-button')?.addEventListener('click', () => {
-    if (!confirm('确认清空本试卷的全部历史错题记录吗？本轮作答统计会保留。')) return;
+  $('#clear-wrong-button')?.addEventListener('click', async () => {
+    if (!await ExamUI.confirm('确认清空本试卷的全部历史错题记录吗？本轮作答统计会保留。', '清空错题记录', '确认清空')) return;
     practice.history = {};
     wrongOnly = false;
     updatePracticeView();
