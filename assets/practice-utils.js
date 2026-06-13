@@ -11,20 +11,8 @@
       .replace(/\s+/g, ' ');
   }
 
-  function isMapReduceCoreThoughtQuestion(question) {
-    const stem = String(question?.stem_html || '').replace(/<[^>]*>/g, '');
-    return question?.number === 94
-      && stem.includes('MapReduce')
-      && stem.includes('核心思想');
-  }
-
-  function fixedAnswer(question) {
-    if (isMapReduceCoreThoughtQuestion(question)) return ['计算向数据靠拢'];
-    return question.reference?.answer || [];
-  }
-
   function correctLabels(question) {
-    return fixedAnswer(question);
+    return question.reference?.answer || [];
   }
 
   function isObjective(question) {
@@ -46,13 +34,12 @@
     const reference = question.reference;
     if (!reference) return false;
     if (!isObjective(question)) return value === true;
-    const answer = fixedAnswer(question);
     if (question.type === '单选题' || question.type === '判断题') {
-      return value === answer[0];
+      return value === reference.answer[0];
     }
     if (question.type === '多选题') {
       const selected = new Set(Array.isArray(value) ? value : []);
-      const expected = new Set(answer);
+      const expected = new Set(reference.answer);
       return selected.size === expected.size
         && [...selected].every((item) => expected.has(item));
     }
@@ -60,7 +47,7 @@
       if (!Array.isArray(value) || value.length !== question.blank_count) return false;
       return value.every((entry, index) => {
         const accepted = [
-          answer[index],
+          reference.answer[index],
           ...((reference.accepted && reference.accepted[index]) || []),
         ];
         const normalized = normalizeAnswer(entry);
