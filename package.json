@@ -3,6 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "scripts": {
+    "update:software-answers": "node scripts/add-software-answers.mjs",
     "test": "node scripts/validate-site.mjs"
   }
 }

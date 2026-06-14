@@ -66,7 +66,7 @@
       "source_file": "考试系统 (2026_5_21 19：16：59).html",
       "source_sha256": "613b9c586bc934f89f954c0724077510623e5a770b33fe5718b5c267cf024c77",
       "question_count": 1,
-      "answer_count": 0,
+      "answer_count": 1,
       "type_counts": {
         "案例分析": 1
       }
@@ -77,7 +77,7 @@
       "source_file": "考试系统 (2026_5_21 18：00：13).html",
       "source_sha256": "56e9280b7d6dd9531075200ee162168f94dc7b5de32f734a518af7eb4bf065ac",
       "question_count": 3,
-      "answer_count": 0,
+      "answer_count": 3,
       "type_counts": {
         "案例分析": 3
       }
@@ -100,7 +100,7 @@
       "source_file": "考试系统 (2026_5_19 14：44：03).html",
       "source_sha256": "4fb8dc688902c301db3c1a3ec4e6da655d7745d43073731bdd6cca2e7ce288b5",
       "question_count": 22,
-      "answer_count": 0,
+      "answer_count": 22,
       "type_counts": {
         "判断题": 2,
         "单选题": 16,

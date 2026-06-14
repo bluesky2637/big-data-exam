@@ -8,7 +8,16 @@ const root = path.resolve(import.meta.dirname, '..');
 const require = createRequire(import.meta.url);
 const practice = require(path.join(root, 'assets', 'practice-utils.js'));
 const expectedCounts = [4, 92, 72, 1, 3, 50, 22, 38, 226, 27, 130];
-const answerPaperIds = new Set(['paper-03', 'paper-08', 'paper-09', 'paper-10', 'paper-11']);
+const answerPaperIds = new Set([
+  'paper-03',
+  'paper-04',
+  'paper-05',
+  'paper-07',
+  'paper-08',
+  'paper-09',
+  'paper-10',
+  'paper-11',
+]);
 const htmlFiles = ['index.html', 'challenge.html', 'offline.html', '404.html'];
 const paperFiles = expectedCounts.map((_, index) => `papers/paper-${String(index + 1).padStart(2, '0')}.html`);
 
@@ -38,7 +47,7 @@ function verifyInternalLinks(relativePath) {
 const papers = paperFiles.map(paperData);
 assert.deepEqual(papers.map((paper) => paper.question_count), expectedCounts, '各试卷题数不匹配');
 assert.equal(papers.reduce((sum, paper) => sum + paper.question_count, 0), 665, '总题数必须为665');
-assert.equal(papers.filter((paper) => paper.has_answers).reduce((sum, paper) => sum + paper.question_count, 0), 493, '答案覆盖必须为493题');
+assert.equal(papers.filter((paper) => paper.has_answers).reduce((sum, paper) => sum + paper.question_count, 0), 519, '答案覆盖必须为519题');
 
 papers.forEach((paper, index) => {
   assert.equal(paper.questions.length, expectedCounts[index], `${paper.id} questions数组数量不匹配`);
@@ -77,9 +86,18 @@ assert.equal(paper10.questions.filter((question) => question.type === '主观题
 assert(paper10.questions.every((question) => practice.isCorrect(question, true)), '主观题“会做”应判定通过');
 assert.deepEqual(
   papers.filter((paper) => paper.has_answers).map((paper) => paper.question_count),
-  [72, 38, 226, 27, 130],
-  '五套闯关题库题数不匹配',
+  [72, 1, 3, 22, 38, 226, 27, 130],
+  '八套闯关题库题数不匹配',
 );
+
+const paper04 = papers.find((paper) => paper.id === 'paper-04');
+assert.equal(paper04.questions[0].reference.answer.length, 7, '边界值案例必须包含7个完美边界值');
+const paper05 = papers.find((paper) => paper.id === 'paper-05');
+assert.match(paper05.questions[0].reference.answer.join(' '), /E1=平台管理员/);
+assert.match(paper05.questions[2].reference.answer.join(' '), /D4=治疗意见文件/);
+const paper07 = papers.find((paper) => paper.id === 'paper-07');
+assert(practice.isCorrect(paper07.questions[0], 'A'), '软件工程判断题应支持即时判定');
+assert(practice.isCorrect(paper07.questions[5], ['需求模型', '分析模型', '设计模型', '实现模型', '测试模型']), 'OOSE五类模型答案应判定正确');
 
 const paper09 = papers.find((paper) => paper.id === 'paper-09');
 assert.match(paper09.questions[0].reference.explanation, /查询分析计算/);
@@ -90,7 +108,7 @@ assert.equal(paper09.questions[42].reference.explanation, '正确内容为：任
 assert.equal(paper09.questions[200].reference.answer[0], 'A', '争议文本不得覆盖第201题答案');
 
 const indexHtml = read('index.html');
-assert.equal((indexHtml.match(/class="card-link challenge-link"/g) || []).length, 5, '首页必须静态包含5个闯关入口');
+assert.equal((indexHtml.match(/class="card-link challenge-link"/g) || []).length, 8, '首页必须静态包含8个闯关入口');
 
 const manifest = JSON.parse(read('manifest.webmanifest'));
 assert(manifest.icons.some((icon) => icon.sizes === '192x192' && icon.type === 'image/png'), 'manifest缺少192x192 PNG图标');
@@ -127,4 +145,4 @@ for (const iconPath of ['./assets/icons/icon-192.png', './assets/icons/icon-512.
   assert(serviceWorker.includes(iconPath), `离线缓存缺少${iconPath}`);
 }
 
-console.log('Validation passed: 11 papers, 665 questions, 493 answered questions, PWA and challenge checks OK.');
+console.log('Validation passed: 11 papers, 665 questions, 519 answered questions, PWA and challenge checks OK.');
