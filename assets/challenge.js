@@ -6,6 +6,7 @@
     && resolvedPath.origin === location.origin
     ? requestedPath
     : 'papers/paper-07.html';
+  const paperRequestPath = `${safePath}${safePath.includes('?') ? '&' : '?'}challengeVersion=5`;
   const groupSize = 20;
   const practice = window.ExamPractice;
   const answerLabel = practice.answerLabel;
@@ -356,7 +357,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  fetch(safePath)
+  fetch(paperRequestPath, { cache: 'no-store' })
     .then((response) => {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.text();

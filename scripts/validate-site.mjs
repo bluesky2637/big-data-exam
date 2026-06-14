@@ -86,6 +86,7 @@ assert(manifest.icons.some((icon) => icon.sizes === '512x512' && icon.type === '
 const challengeJs = read('assets/challenge.js');
 assert(/const answerLabel = practice\.answerLabel/.test(challengeJs), '20题闯关必须复用共享答案模块');
 assert(/papers\/paper-07\.html/.test(challengeJs), '闯关默认试卷必须指向保留页面');
+assert(/challengeVersion=5/.test(challengeJs), '闯关题库请求必须绕过旧版试卷缓存');
 assert(/reference\.explanation/.test(challengeJs), '闯关解析必须使用题目reference.explanation');
 
 const examJs = read('assets/exam.js');
