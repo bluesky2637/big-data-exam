@@ -1,13 +1,14 @@
 (() => {
   const params = new URLSearchParams(location.search);
-  const requestedPath = params.get('paper') || 'papers/paper-09.html';
+  const requestedPath = params.get('paper') || 'papers/paper-07.html';
   const resolvedPath = new URL(requestedPath, location.href);
   const safePath = /\/papers\/paper-\d{2}\.html$/.test(resolvedPath.pathname)
     && resolvedPath.origin === location.origin
     ? requestedPath
-    : 'papers/paper-09.html';
+    : 'papers/paper-07.html';
   const groupSize = 20;
   const practice = window.ExamPractice;
+  const answerLabel = practice.answerLabel;
   let paper = null;
   let state = null;
 
@@ -90,14 +91,6 @@
 
   function labels(question) {
     return practice.correctLabels(question);
-  }
-
-  function answerLabel(question) {
-    const answers = labels(question);
-    if (question.type === '填空题') {
-      return answers.map((value, index) => `第${index + 1}空：${value}`).join('；');
-    }
-    return answers.join('、');
   }
 
   function referenceHtml(question) {

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'big-data-exam-v4';
+const CACHE_NAME = 'software-engineering-exam-v5';
 const PRECACHE = [
   './',
   './index.html',
@@ -19,19 +19,9 @@ const PRECACHE = [
   './assets/icons/icon-512.png',
   './data/papers.json',
   './data/audit.json',
-  './papers/paper-01.html',
-  './papers/paper-02.html',
-  './papers/paper-03.html',
   './papers/paper-04.html',
   './papers/paper-05.html',
-  './papers/paper-06.html',
   './papers/paper-07.html',
-  './papers/paper-08.html',
-  './papers/paper-09.html',
-  './papers/paper-10.html',
-  './papers/paper-11.html',
-  './assets/images/paper-01-q002-01.png',
-  './assets/images/paper-01-q003-01.png',
   './assets/images/paper-05-q001-01.png',
   './assets/images/paper-05-q002-01.png',
   './assets/images/paper-05-q002-02.png',

@@ -1,7 +1,7 @@
 {
-  "name": "大数据考试与刷题",
-  "short_name": "考试刷题",
-  "description": "11套考试试卷、665道题的在线与离线学习站。",
+  "name": "软件工程考试与刷题",
+  "short_name": "软件工程刷题",
+  "description": "3套软件工程试卷、26道题的在线与离线学习站。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

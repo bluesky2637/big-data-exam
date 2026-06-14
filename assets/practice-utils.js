@@ -15,6 +15,14 @@
     return question.reference?.answer || [];
   }
 
+  function answerLabel(question) {
+    const values = correctLabels(question);
+    if (question.type === '填空题') {
+      return values.map((value, index) => `第 ${index + 1} 空：${value}`).join('；');
+    }
+    return values.join(question.type === '主观题' ? '；' : '、');
+  }
+
   function isObjective(question) {
     return ['单选题', '多选题', '判断题', '填空题'].includes(question.type);
   }
@@ -60,6 +68,7 @@
   return {
     normalizeAnswer,
     correctLabels,
+    answerLabel,
     isObjective,
     isAnswered,
     isCorrect,
